@@ -10,3 +10,28 @@ $gutter: 1rem; //for primeflex grid system
 
 /* Demos */
 @import '@/assets/demo/demo.scss';
+
+.p-datatable-row-expansion > td{
+    padding:0;
+}
+.table-fold{
+    th, td{
+        background-color:#f1f1f1;
+    }
+}
+
+.input-wrap{
+    align-items: center;
+    border:1px solid #ccc;
+    padding:.8rem 1rem;
+    margin:1rem 0 1.5rem;
+    border-radius: 10px;
+    justify-content: space-between;
+    .left{
+        display:flex;
+        align-items: center;
+        & > *{
+            margin-right:1rem;
+        }
+    }
+}

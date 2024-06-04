@@ -9,6 +9,126 @@ const router = createRouter({
             component: AppLayout,
             children: [
                 {
+                    path: '/setting/ip',
+                    name: 'ipsetting',
+                    component: () => import('@/views/setting/ipSetting.vue')
+                },
+                {
+                    path: '/setting/join',
+                    name: 'joinsetting',
+                    component: () => import('@/views/setting/joinSetting.vue')
+                },
+                {
+                    path: '/setting/menu',
+                    name: 'menusetting',
+                    component: () => import('@/views/setting/menuSetting.vue')
+                },
+                {
+                    path: '/setting/personal',
+                    name: 'personalsetting',
+                    component: () => import('@/views/setting/personalSetting.vue')
+                },
+                {
+                    path: '/setting/service',
+                    name: 'servicesetting',
+                    component: () => import('@/views/setting/serviceSetting.vue')
+                },
+                {
+                    path: '/user/approval',
+                    name: 'userapproval',
+                    component: () => import('@/views/user/userApproval.vue')
+                },
+                {
+                    path: '/user/list',
+                    name: 'userlist',
+                    component: () => import('@/views/user/userList.vue')
+                },
+                {
+                    path: '/user/total',
+                    name: 'visitortotal',
+                    component: () => import('@/views/user/visitorTotal.vue')
+                },
+                {
+                    path: '/seller/list',
+                    name: 'sellerlist',
+                    component: () => import('@/views/seller/sellerList.vue')
+                },
+                {
+                    path: '/seller/register',
+                    name: 'sellerregister',
+                    component: () => import('@/views/seller/sellerRegister.vue')
+                },
+                {
+                    path: '/event/list',
+                    name: 'eventlist',
+                    component: () => import('@/views/event/eventList.vue')
+                },
+                {
+                    path: '/event/register',
+                    name: 'eventregister',
+                    component: () => import('@/views/event/eventRegister.vue')
+                },
+                {
+                    path: '/shop/setting',
+                    name: 'shopsetting',
+                    component: () => import('@/views/shop/shopSetting.vue')
+                },
+                {
+                    path: '/shop/history',
+                    name: 'orderhistory',
+                    component: () => import('@/views/shop/orderHistory.vue')
+                },
+                {
+                    path: '/shop/classify',
+                    name: 'classifysetting',
+                    component: () => import('@/views/shop/classifySetting.vue')
+                },
+                {
+                    path: '/shop/productad',
+                    name: 'productadmin',
+                    component: () => import('@/views/shop/productAdmin.vue')
+                },
+                {
+                    path: '/shop/productin',
+                    name: 'productinquiry',
+                    component: () => import('@/views/shop/productInquiry.vue')
+                },
+                {
+                    path: '/shop/productst',
+                    name: 'productstock',
+                    component: () => import('@/views/shop/productStock.vue')
+                },
+                {
+                    path: '/shop/producttp',
+                    name: 'producttype',
+                    component: () => import('@/views/shop/productType.vue')
+                },
+                {
+                    path: '/shop/delivery',
+                    name: 'deliveryadmin',
+                    component: () => import('@/views/shop/deliveryAdmin.vue')
+                },
+                {
+                    path: '/shop/incomplete',
+                    name: 'incompleteorder',
+                    component: () => import('@/views/shop/incompleteOrder.vue')
+                },
+                {
+                    path: '/sale/calculate',
+                    name: 'salecalculate',
+                    component: () => import('@/views/sale/saleCalculate.vue')
+                },
+                {
+                    path: '/sale/ranking',
+                    name: 'saleranking',
+                    component: () => import('@/views/sale/saleRanking.vue')
+                },
+                {
+                    path: '/sale/history',
+                    name: 'salehistory',
+                    component: () => import('@/views/sale/saleHistory.vue')
+                },
+                {
                     path: '/',
                     name: 'dashboard',
                     component: () => import('@/views/Dashboard.vue')
