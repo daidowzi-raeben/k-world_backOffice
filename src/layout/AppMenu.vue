@@ -45,9 +45,11 @@ const model = ref([
         items: [
             { label: '쇼핑몰 설정', to: '/shop/setting' },
             { label: '주문내역', to: '/shop/history' },
+            { label: '직원관리', to: '/shop/employee' },
             { label: '분류관리', to: '/shop/classify' },
             { label: '상품관리', to: '/shop/productad' },
             { label: '상품문의', to: '/shop/productin' },
+            { label: '상품후기', to: '/shop/productre' },
             { label: '상품재고관리', to: '/shop/productst' },
             { label: '상품유형관리', to: '/shop/producttp' },
             { label: '추가배송비관리', to: '/shop/delivery' },

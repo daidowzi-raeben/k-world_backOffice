@@ -1,121 +1,9 @@
-<script setup>
-import { onMounted, ref, watch } from 'vue';
-import { ProductService } from '@/service/ProductService';
-import { useLayout } from '@/layout/composables/layout';
-
-const { isDarkTheme } = useLayout();
-
-const products = ref(null);
-const lineOptions = ref(null);
-const productService = new ProductService();
-const expandedRows = ref([]);
-
-onMounted(() => {
-    productService.getProductsSmall().then((data) => (products.value = data));
-});
-
-const expandAll = () => {
-    expandedRows.value = products.value.reduce((acc, p) => (acc[p.id] = true) && acc, {});
-};
-const collapseAll = () => {
-    expandedRows.value = null;
-};
-
-const getBadgeSeverity = (inventoryStatus) => {
-    switch (inventoryStatus.toLowerCase()) {
-        case 'instock':
-            return 'success';
-        case 'lowstock':
-            return 'warning';
-        case 'outofstock':
-            return 'danger';
-        default:
-            return 'info';
-    }
-};
-
-const formatCurrency = (value) => {
-    return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-};
-const applyLightTheme = () => {
-    lineOptions.value = {
-        plugins: {
-            legend: {
-                labels: {
-                    color: '#495057'
-                }
-            }
-        },
-        scales: {
-            x: {
-                ticks: {
-                    color: '#495057'
-                },
-                grid: {
-                    color: '#ebedef'
-                }
-            },
-            y: {
-                ticks: {
-                    color: '#495057'
-                },
-                grid: {
-                    color: '#ebedef'
-                }
-            }
-        }
-    };
-};
-
-const applyDarkTheme = () => {
-    lineOptions.value = {
-        plugins: {
-            legend: {
-                labels: {
-                    color: '#ebedef'
-                }
-            }
-        },
-        scales: {
-            x: {
-                ticks: {
-                    color: '#ebedef'
-                },
-                grid: {
-                    color: 'rgba(160, 167, 181, .3)'
-                }
-            },
-            y: {
-                ticks: {
-                    color: '#ebedef'
-                },
-                grid: {
-                    color: 'rgba(160, 167, 181, .3)'
-                }
-            }
-        }
-    };
-};
-
-watch(
-    isDarkTheme,
-    (val) => {
-        if (val) {
-            applyDarkTheme();
-        } else {
-            applyLightTheme();
-        }
-    },
-    { immediate: true }
-);
-</script>
-
 <template>
     <div class="grid">
         <div class="col-12">
             <div class="card">
                 <h4><strong>분류관리</strong></h4>
-                <div class="input-wrap grid">
+                <div class="search-wrap grid">
                     <div class="left">
                         <label class="label">분류 검색</label>
                         <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
@@ -131,78 +19,106 @@ watch(
                     </div>
 
                     <div class="right">
-                        <Button label="search" class="mr-2" />
-                        <Button label="reset" />
+                        <Button label="Search" class="mr-2" />
+                        <Button label="Reset" />
                     </div>
                 </div>
-                <DataTable :value="products" v-model:expandedRows="expandedRows" dataKey="id" tableStyle="min-width: 60rem">
-                    <Column :expander="true" headerStyle="width: 3rem" />
-                    <Column field="name" header="Name" :sortable="true">
-                        <template #body="slotProps">
-                            {{ slotProps.data.name }}
-                        </template>
-                    </Column>
-                    <Column header="Image">
-                        <template #body="slotProps">
-                            <img :src="'/demo/images/product/' + slotProps.data.image" :alt="slotProps.data.image" class="shadow-2" width="100" />
-                        </template>
-                    </Column>
-                    <Column field="price" header="Price" :sortable="true">
-                        <template #body="slotProps">
-                            {{ formatCurrency(slotProps.data.price) }}
-                        </template>
-                    </Column>
-                    <Column field="category" header="Category" :sortable="true">
-                        <template #body="slotProps">
-                            {{ formatCurrency(slotProps.data.category) }}
-                        </template></Column
-                    >
-                    <Column field="rating" header="Reviews" :sortable="true">
-                        <template #body="slotProps">
-                            <Rating :modelValue="slotProps.data.rating" :readonly="true" :cancel="false" />
-                        </template>
-                    </Column>
-                    <Column field="inventoryStatus" header="Status" :sortable="true">
-                        <template #body="slotProps">
-                            <Tag :severity="getBadgeSeverity(slotProps.data.inventoryStatus)">{{ slotProps.data.inventoryStatus }}</Tag>
-                        </template>
-                    </Column>
-                    <template #expansion="slotProps">
-                        <div class="table-fold">
-                            <DataTable :value="slotProps.data.orders">
-                                <Column field="id" header="Id" :sortable="true">
-                                    <template #body="slotProps">
-                                        {{ slotProps.data.id }}
-                                    </template>
-                                </Column>
-                                <Column field="customer" header="Customer" :sortable="true">
-                                    <template #body="slotProps">
-                                        {{ slotProps.data.customer }}
-                                    </template>
-                                </Column>
-                                <Column field="date" header="Date" :sortable="true">
-                                    <template #body="slotProps">
-                                        {{ slotProps.data.date }}
-                                    </template>
-                                </Column>
-                                <Column field="amount" header="Amount" :sortable="true">
-                                    <template #body="slotProps">
-                                        {{ formatCurrency(slotProps.data.amount) }}
-                                    </template>
-                                </Column>
-                                <Column field="status" header="Status" :sortable="true">
-                                    <template #body="slotProps">
-                                        <span :class="'order-badge order-' + (slotProps.data.status ? slotProps.data.status.toLowerCase() : '')">{{ slotProps.data.status }}</span>
-                                    </template>
-                                </Column>
-                                <Column headerStyle="width:4rem">
-                                    <template #body></template>
-                                </Column>
-                            </DataTable>
-                        </div>
-                    </template>
-                </DataTable>
+
+                <div class="table-top">
+                    <div class="left">Total 10</div>
+                    <div class="right"></div>
+                </div>
+                <div class="table-wrap">
+                    <table class="table">
+                        <tr>
+                            <th></th>
+                            <th>분류코드</th>
+                            <th>분류명</th>
+                            <th>상품 수</th>
+                            <th>판매가능</th>
+                            <th>이벤트여부</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" class="btn btn-fold">
+                                    <i class="pi pi-angle-right isActive"></i>
+                                </button>
+                            </td>
+                            <td>A0001</td>
+                            <td class="text-left">Food</td>
+                            <td>5</td>
+                            <td>Y</td>
+                            <td>Y</td>
+                            <td><Button outlined label="추가" /></td>
+                        </tr>
+                        <tr class="fold isActive">
+                            <td>
+                                <button type="button" class="btn btn-fold">
+                                    <i class="pi pi-angle-right isActive"></i>
+                                </button>
+                            </td>
+                            <td>A0001</td>
+                            <td class="text-left depth">Food</td>
+                            <td>5</td>
+                            <td>Y</td>
+                            <td>Y</td>
+                            <td><Button outlined label="추가" /></td>
+                        </tr>
+                        <tr class="fold isActive">
+                            <td></td>
+                            <td>A0001</td>
+                            <td class="text-left depth">Food</td>
+                            <td>5</td>
+                            <td>Y</td>
+                            <td>Y</td>
+                            <td></td>
+                        </tr>
+                        <tr v-for="item in 5" :key="item">
+                            <td>
+                                <button type="button" class="btn btn-fold">
+                                    <i class="pi pi-angle-right"></i>
+                                </button>
+                            </td>
+                            <td>A0001</td>
+                            <td class="text-left">Food</td>
+                            <td>5</td>
+                            <td>Y</td>
+                            <td>Y</td>
+                            <td><Button outlined label="추가" /></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+import { ref } from 'vue';
+
+export default {
+    data() {
+    return {
+        dropdownValues: ref([
+            { name: 'select1', code: '1' },
+            { name: 'select2', code: '2' },
+            { name: 'select3', code: '3' },
+        ]),
+        dropdownValue: ref(null),
+    };
+  },
+  components: {},
+  created(){},
+  mounted() {
+    
+  },
+  methods: {
+  },
+};
+</script>
+
+
+<style>
+
+</style>

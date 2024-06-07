@@ -2,12 +2,11 @@
     <div class="grid">
         <div class="col-12">
             <div class="card">
-                <h4><strong>상품문의</strong></h4>
+                <h4><strong>직원 목록</strong></h4>
                 <div class="search-wrap grid">
                     <div class="left">
-                        <label class="label">문의 검색</label>
+                        <label class="label">직원 검색</label>
                         <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
-                        <Dropdown v-model="dropdownValue2" :options="dropdownValues2" optionLabel="name" placeholder="Select" />
 
                         <div class="grid formgrid">
                             <div class="col-12 mb-2 lg:col-6 lg:mb-0">
@@ -28,34 +27,31 @@
                 <div class="table-top">
                     <div class="left">Total 10</div>
                     <div class="right">
-                        <Button label="선택삭제" severity="secondary" />
+                        <Button label="숨김해제" severity="secondary" class="mr-2" />
+                        <Button label="등록" severity="secondary" @click="router.push('/shop/employee/add')" />
                     </div>
                 </div>
                 <div class="table-wrap">
                     <table class="table">
                         <tr>
-                            <th>
-                                <div class="field-checkbox mb-0">
-                                    <Checkbox id="checkOption" name="option" value="all" v-model="checkboxValue" />
-                                </div>
-                            </th>
-                            <th>상품명</th>
-                            <th>질문</th>
+                            <th>식별코드</th>
+                            <th>관리등급</th>
+                            <th>아이디</th>
                             <th>이름</th>
-                            <th>답변</th>
-                            <th>관리</th>
+                            <th>연락처</th>
+                            <th>이메일</th>
+                            <th>성별</th>
+                            <th>생년월일</th>
                         </tr>
                         <tr v-for="item in 5" :key="item">
-                            <td>
-                                <div class="field-checkbox mb-0">
-                                    <Checkbox :id="'checkOption' + item" name="option" :value="item" v-model="checkboxValue" />
-                                </div>
-                            </td>
-                            <td class="text-left">TH-파스텔드레스셔츠-그린</td>
-                            <td>문의입니다</td>
-                            <td>이름</td>
-                            <td></td>
-                            <td><Button label="관리" outlined @click="router.push('/shop/productin/detail')" /></td>
+                            <td>A0001</td>
+                            <td>상품관리</td>
+                            <td>aa****</td>
+                            <td>aa****</td>
+                            <td>aa****</td>
+                            <td>aa****@gmail.com</td>
+                            <td>Female</td>
+                            <td>1999.11.11</td>
                         </tr>
                     </table>
                 </div>
@@ -77,14 +73,7 @@ export default {
             { name: 'select3', code: '3' },
         ]),
         dropdownValue: ref(null),
-        dropdownValues2: ref([
-            { name: 'select1', code: '1' },
-            { name: 'select2', code: '2' },
-            { name: 'select3', code: '3' },
-        ]),
-        dropdownValue2: ref(null),
-        router: useRouter(),
-        checkboxValue: ref([]),
+        router: useRouter()
     };
   },
   components: {},

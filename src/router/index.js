@@ -44,6 +44,11 @@ const router = createRouter({
                     component: () => import('@/views/user/userList.vue')
                 },
                 {
+                    path: '/user/add',
+                    name: 'useradd',
+                    component: () => import('@/views/user/userAdd.vue')
+                },
+                {
                     path: '/user/total',
                     name: 'visitortotal',
                     component: () => import('@/views/user/visitorTotal.vue')
@@ -79,9 +84,24 @@ const router = createRouter({
                     component: () => import('@/views/shop/orderHistory.vue')
                 },
                 {
+                    path: '/shop/employee',
+                    name: 'employeelist',
+                    component: () => import('@/views/shop/employeeList.vue')
+                },
+                {
+                    path: '/shop/employee/add',
+                    name: 'employeeadd',
+                    component: () => import('@/views/shop/employeeAdd.vue')
+                },
+                {
                     path: '/shop/classify',
                     name: 'classifysetting',
                     component: () => import('@/views/shop/classifySetting.vue')
+                },
+                {
+                    path: '/shop/classify/add',
+                    name: 'classifysettingadd',
+                    component: () => import('@/views/shop/classifySettingAdd.vue')
                 },
                 {
                     path: '/shop/productad',
@@ -89,9 +109,24 @@ const router = createRouter({
                     component: () => import('@/views/shop/productAdmin.vue')
                 },
                 {
+                    path: '/shop/productRe',
+                    name: 'productreview',
+                    component: () => import('@/views/shop/productReview.vue')
+                },
+                {
+                    path: '/shop/productRe/detail',
+                    name: 'productreviewdetail',
+                    component: () => import('@/views/shop/productReviewDetail.vue')
+                },
+                {
                     path: '/shop/productin',
                     name: 'productinquiry',
                     component: () => import('@/views/shop/productInquiry.vue')
+                },
+                {
+                    path: '/shop/productin/detail',
+                    name: 'productinquirydetail',
+                    component: () => import('@/views/shop/productInquiryDetail.vue')
                 },
                 {
                     path: '/shop/productst',

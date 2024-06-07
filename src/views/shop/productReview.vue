@@ -2,10 +2,10 @@
     <div class="grid">
         <div class="col-12">
             <div class="card">
-                <h4><strong>상품문의</strong></h4>
+                <h4><strong>상품후기</strong></h4>
                 <div class="search-wrap grid">
                     <div class="left">
-                        <label class="label">문의 검색</label>
+                        <label class="label">후기 검색</label>
                         <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
                         <Dropdown v-model="dropdownValue2" :options="dropdownValues2" optionLabel="name" placeholder="Select" />
 
@@ -40,9 +40,10 @@
                                 </div>
                             </th>
                             <th>상품명</th>
-                            <th>질문</th>
                             <th>이름</th>
-                            <th>답변</th>
+                            <th>제목</th>
+                            <th>평점</th>
+                            <th>확인</th>
                             <th>관리</th>
                         </tr>
                         <tr v-for="item in 5" :key="item">
@@ -52,10 +53,17 @@
                                 </div>
                             </td>
                             <td class="text-left">TH-파스텔드레스셔츠-그린</td>
-                            <td>문의입니다</td>
                             <td>이름</td>
-                            <td></td>
-                            <td><Button label="관리" outlined @click="router.push('/shop/productin/detail')" /></td>
+                            <td>후기입니다</td>
+                            <td>
+                                <Rating v-model="ratingValue" class="justify-content-center" readonly />
+                            </td>
+                            <td>
+                                <div class="field-checkbox mb-0 justify-content-center">
+                                    <Checkbox :id="'checkOption' + item + '_confirm'" name="option" :value="item" v-model="checkboxValue" />
+                                </div>
+                            </td>
+                            <td><Button label="수정" outlined @click="router.push('/shop/productre/detail')" /></td>
                         </tr>
                     </table>
                 </div>
@@ -85,6 +93,7 @@ export default {
         dropdownValue2: ref(null),
         router: useRouter(),
         checkboxValue: ref([]),
+        ratingValue: ref(4),
     };
   },
   components: {},
