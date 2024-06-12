@@ -7,6 +7,11 @@ module.exports = {
     parserOptions: {
         ecmaVersion: 'latest'
     },
+    globals: {
+        "todoEventBus": "readable",
+        $: true,
+        jQuery: true
+    },
     rules: {
         'vue/multi-word-component-names': 'off',
         'vue/no-reserved-component-names': 'off',

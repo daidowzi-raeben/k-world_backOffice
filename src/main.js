@@ -108,23 +108,35 @@ import VirtualScroller from 'primevue/virtualscroller';
 
 import BlockViewer from '@/components/BlockViewer.vue';
 
+import SummernoteEditor from 'vue3-summernote-editor';
+// import  quillEditor  from 'vue3-quill';
+
 import '@/assets/styles.scss';
+import jQuery from 'jquery';
+
+// import QuillEditor  from 'vue3-quill-editor-vite';
+// import 'vue3-quill-editor-vite/dist/style.css';
+// app.use(QuillEditor);
 
 const app = createApp(App);
+
+window.$ = jQuery;
 
 app.use(router);
 app.use(PrimeVue, { ripple: true });
 app.use(ToastService);
 app.use(DialogService);
 app.use(ConfirmationService);
+// app.use(quillEditor);
 
 app.directive('tooltip', Tooltip);
 app.directive('badge', BadgeDirective);
 app.directive('ripple', Ripple);
 app.directive('styleclass', StyleClass);
 
-app.component('BlockViewer', BlockViewer);
 
+app.component('BlockViewer', BlockViewer);
+app.component('SummernoteEditor', SummernoteEditor);
 app.component('Accordion', Accordion);
 app.component('AccordionTab', AccordionTab);
 app.component('AutoComplete', AutoComplete);

@@ -1,19 +1,20 @@
 <template>
-    <div>asd</div>
+  <div>
+    <vue-editor v-model="content"></vue-editor>
+  </div>
 </template>
 
 <script>
+import { VueEditor } from "vue3-editor";
 export default {
     data() {
     return {
-     
+      content: '',
     };
   },
-  components: {},
+  components: { VueEditor },
   created(){},
-  mounted() {
-    
-  },
+  mounted(){},
   methods: {
 
   },
