@@ -34,7 +34,7 @@
                 </div>
                 <div class="input-wrap">
                     <label class="label">생년월일</label>
-                    <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue"></Calendar>
+                    <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue" dateFormat="yy/mm/dd" placeholder="yyyy/mm/dd"></Calendar>
                 </div>
                 <div class="input-wrap">
                     <label class="label">관리등급</label>

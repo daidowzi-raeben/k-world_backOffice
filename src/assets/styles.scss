@@ -15,7 +15,7 @@ $gutter: 1rem; //for primeflex grid system
     background-color:#fff;
 }
 .p-radiobutton + label{
-    margin:0 10px 0 5px;
+    margin:0 15px 0 5px;
 }
 .p-rating-cancel-item{
     display:none;
@@ -23,6 +23,13 @@ $gutter: 1rem; //for primeflex grid system
 .p-button.lg{
     font-size:1.1rem;
     padding:.6rem 1.5rem;
+}
+.wd-100{
+    width:100%;
+}
+
+.layout-main-container{
+    min-width: calc(1140px - 4rem);
 }
 
 .table{
@@ -130,6 +137,30 @@ $gutter: 1rem; //for primeflex grid system
         }
         & + .input-wrap{
             margin-top:20px;
+        }
+        .scroll-box{
+            border:1px solid #e2e8f0;
+            padding:15px 20px;
+            border-radius: 5px;
+            display:flex;
+            flex-direction: column;
+            height:150px;
+            width:150px;
+            overflow: auto;
+            & + .scroll-box{
+                margin-left: 20px;
+            }
+            .btn{
+                text-align: left;
+                margin-bottom:10px;
+                transition:all .3s;
+                &:last-child{
+                    margin-bottom:0;
+                }
+                &:hover, &.isActive{
+                    color:$colPrimary;
+                }
+            }
         }
     }
 }

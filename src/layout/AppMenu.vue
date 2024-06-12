@@ -11,9 +11,9 @@ const model = ref([
     {
         label: 'Setting',
         items: [
-            { label: '회원가입 약관 설정', to: '/setting/join' },
-            { label: '서비스 이용약관 설정', to: '/setting/service' },
-            { label: '개인정보처리방침 설정', to: '/setting/personal' },
+            { label: '☆회원가입 약관 설정', to: '/setting/join' },
+            { label: '☆서비스 이용약관 설정', to: '/setting/service' },
+            { label: '☆개인정보처리방침 설정', to: '/setting/personal' },
             { label: '접근차단IP 설정', to: '/setting/ip' },
             { label: '메뉴 설정', to: '/setting/menu' }
         ]
@@ -21,9 +21,9 @@ const model = ref([
     {
         label: 'User',
         items: [
-            { label: '회원목록', to: '/user/list' },
+            { label: '☆회원목록', to: '/user/list' },
             { label: '회원승인', to: '/user/approval' },
-            { label: '접속자 집계', to: '/user/total' }
+            { label: '☆접속자 집계', to: '/user/total' }
         ]
     },
     {
@@ -44,12 +44,12 @@ const model = ref([
         label: 'Shop',
         items: [
             { label: '쇼핑몰 설정', to: '/shop/setting' },
-            { label: '주문내역', to: '/shop/history' },
-            { label: '직원관리', to: '/shop/employee' },
-            { label: '분류관리', to: '/shop/classify' },
+            { label: '☆주문내역', to: '/shop/history' },
+            { label: '☆직원관리', to: '/shop/employee' },
+            { label: '☆분류관리', to: '/shop/classify' },
             { label: '상품관리', to: '/shop/productad' },
-            { label: '상품문의', to: '/shop/productin' },
-            { label: '상품후기', to: '/shop/productre' },
+            { label: '☆상품문의', to: '/shop/productin' },
+            { label: '☆상품후기', to: '/shop/productre' },
             { label: '상품재고관리', to: '/shop/productst' },
             { label: '상품유형관리', to: '/shop/producttp' },
             { label: '추가배송비관리', to: '/shop/delivery' },

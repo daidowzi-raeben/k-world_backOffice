@@ -25,7 +25,7 @@ const logoUrl = computed(() => {
                     </div>
 
                     <div>
-                        <label for="email1" class="block text-900 text-xl font-medium mb-2">Email</label>
+                        <label for="email1" class="block text-900 text-xl font-medium mb-2">Id</label>
                         <InputText id="email1" type="text" placeholder="Email address" class="w-full md:w-30rem mb-5" style="padding: 1rem" v-model="email" />
 
                         <label for="password1" class="block text-900 font-medium text-xl mb-2">Password</label>
@@ -34,11 +34,12 @@ const logoUrl = computed(() => {
                         <div class="flex align-items-center justify-content-between mb-5 gap-5">
                             <div class="flex align-items-center">
                                 <Checkbox v-model="checked" id="rememberme1" binary class="mr-2"></Checkbox>
-                                <label for="rememberme1">Remember me</label>
+                                <label for="rememberme1">Auto login</label>
                             </div>
                             <a class="font-medium no-underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)">Forgot password?</a>
                         </div>
                         <Button label="Sign In" class="w-full p-3 text-xl"></Button>
+                        <Button label="Sign Up" severity="secondary" class="w-full p-3 text-xl mt-3"></Button>
                     </div>
                 </div>
             </div>
