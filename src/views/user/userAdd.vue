@@ -57,27 +57,35 @@ import { ref } from 'vue';
 
 export default {
     data() {
-    return {
-        dropdownValues: ref([
-            { name: '권한없음', code: '1' },
-            { name: '권한1', code: '2' },
-        ]),
-        dropdownValue: ref(null),
-        radioValue: ref(null),
-        calendarValue: ref(null),
-    };
-  },
-  components: {},
-  created(){},
-  mounted() {
-    
-  },
-  methods: {
-  },
+        return {
+            dropdownValues: ref([
+                { name: '권한없음', code: '1' },
+                { name: '권한1', code: '2' }
+            ]),
+            dropdownValue: ref(null),
+            radioValue: ref(null),
+            calendarValue: ref(null)
+        };
+    },
+    components: {},
+    created() {},
+    mounted() {
+        this.axios
+            .post(`${import.meta.env.VITE_API_URL}/user.php`, {
+                firstName: 'Fred',
+                lastName: 'Flintstone'
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    },
+    methods: {}
 };
 </script>
 
 
 <style>
-
 </style>

@@ -114,11 +114,15 @@ import SummernoteEditor from 'vue3-summernote-editor';
 import '@/assets/styles.scss';
 import jQuery from 'jquery';
 
+import axios from 'axios'
+axios.defaults.baseURL = import.meta.env.VITE_API_URL
+
 // import QuillEditor  from 'vue3-quill-editor-vite';
 // import 'vue3-quill-editor-vite/dist/style.css';
 // app.use(QuillEditor);
 
 const app = createApp(App);
+app.config.globalProperties.axios = axios
 
 window.$ = jQuery;
 
