@@ -18,7 +18,7 @@
                 <div class="input-wrap">
                     <label class="label">연락처</label>
                     <Listbox v-model="listboxValue" :options="listboxValues" optionLabel="name" :filter="true" />
-                    <InputText type="text" placeholder="placeholder" @change="onChangeIsValue('mb_cell', $event)"></InputText>
+                    <InputText type="text" class="ml-3" placeholder="placeholder" @change="onChangeIsValue('mb_cell', $event)"></InputText>
                 </div>
                 <div class="input-wrap">
                     <label class="label">이메일</label>

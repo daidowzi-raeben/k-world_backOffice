@@ -5,7 +5,7 @@
                 <div class="grid">
                   <div class="col-8">
                     <h4><strong>회원가입 약관 설정</strong></h4>
-                    <vue-editor v-model="content"></vue-editor>
+                    <Textarea placeholder="Your Message" :autoResize="true" rows="20" class="wd-100" />
                   </div>
                   <div class="col-4">
                     <h4><strong>개정이력</strong></h4>
@@ -50,14 +50,13 @@
 </template>
 
 <script>
-import { VueEditor } from "vue3-editor";
 export default {
     data() {
     return {
       content: '',
     };
   },
-  components: { VueEditor },
+  components: { },
   created(){},
   mounted(){},
   methods: {

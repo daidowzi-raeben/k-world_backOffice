@@ -57,6 +57,15 @@ const model = ref([
         ]
     },
     {
+        label: 'Notice',
+        items: [
+            { label: '☆배송안내', to: '/notice/delivery' },
+            { label: '☆AS안내', to: '/notice/as' },
+            { label: '☆환불안내', to: '/notice/refund' },
+            { label: '☆교환안내', to: '/notice/exchange' },
+        ]
+    },
+    {
         label: 'Sale',
         items: [
             { label: '매출정산', to: '/sale/calculate' },

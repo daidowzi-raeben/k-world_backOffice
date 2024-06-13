@@ -24,6 +24,10 @@ $gutter: 1rem; //for primeflex grid system
     font-size:1.1rem;
     padding:.6rem 1.5rem;
 }
+.p-listbox-list{
+    max-height: 100px;
+    overflow:auto;
+}
 .wd-100{
     width:100%;
 }

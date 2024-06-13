@@ -169,6 +169,26 @@ const router = createRouter({
                     component: () => import('@/views/sale/saleHistory.vue')
                 },
                 {
+                    path: '/notice/delivery',
+                    name: 'deliverynotice',
+                    component: () => import('@/views/notice/deliveryNotice.vue')
+                },
+                {
+                    path: '/notice/as',
+                    name: 'asnotice',
+                    component: () => import('@/views/notice/asNotice.vue')
+                },
+                {
+                    path: '/notice/refund',
+                    name: 'refundnotice',
+                    component: () => import('@/views/notice/refundNotice.vue')
+                },
+                {
+                    path: '/notice/exchange',
+                    name: 'exchangenotice',
+                    component: () => import('@/views/notice/exchangeNotice.vue')
+                },
+                {
                     path: '/',
                     name: 'dashboard',
                     component: () => import('@/views/Dashboard.vue')

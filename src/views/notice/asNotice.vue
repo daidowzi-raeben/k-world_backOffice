@@ -4,8 +4,8 @@
             <div class="card">
                 <div class="grid">
                   <div class="col-8">
-                    <h4><strong>개인정보처리방침 설정</strong></h4>
-                    <Textarea placeholder="Your Message" :autoResize="true" rows="20" class="wd-100" />
+                    <h4><strong>AS안내</strong></h4>
+                    <vue-editor v-model="content"></vue-editor>
                   </div>
                   <div class="col-4">
                     <h4><strong>개정이력</strong></h4>
@@ -50,13 +50,14 @@
 </template>
 
 <script>
+import { VueEditor } from "vue3-editor";
 export default {
     data() {
     return {
       content: '',
     };
   },
-  components: {},
+  components: { VueEditor },
   created(){},
   mounted(){},
   methods: {
@@ -64,4 +65,3 @@ export default {
   },
 };
 </script>
-

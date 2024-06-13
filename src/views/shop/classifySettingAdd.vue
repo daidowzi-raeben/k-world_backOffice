@@ -70,7 +70,7 @@
                 </template>
                 <div class="input-wrap">
                     <label class="label">배너이미지</label>
-                    <FileUpload mode="basic" name="demo[]" accept="image/*" :maxFileSize="1000000" @uploader="onUpload" customUpload />
+                    <FileUpload name="demo[]" accept="image/*" :maxFileSize="1000000" @uploader="onUpload" customUpload />
                 </div>
             </div>
         </div>
