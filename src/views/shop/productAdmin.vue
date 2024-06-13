@@ -5,7 +5,7 @@
                 <h4><strong>상품관리</strong></h4>
                 <div class="search-wrap grid">
                     <div class="left">
-                        <label class="label">분류 검색</label>
+                        <label class="label">상품 검색</label>
                         <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
 
                         <div class="grid formgrid">
@@ -16,6 +16,10 @@
                                 </IconField>
                             </div>
                         </div>
+
+                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue" dateFormat="yy/mm/dd" placeholder="yyyy/mm/dd"></Calendar>
+                        <span>~</span>
+                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue2" dateFormat="yy/mm/dd" placeholder="yyyy/mm/dd"></Calendar>
                     </div>
 
                     <div class="right">
@@ -26,68 +30,66 @@
 
                 <div class="table-top">
                     <div class="left">Total 10</div>
-                    <div class="right"></div>
+                    <div class="right">
+                        <Button label="상품등록" severity="secondary" @click="router.push('/shop/product/add')"  />
+                    </div>
                 </div>
                 <div class="table-wrap">
                     <table class="table">
                         <tr>
-                            <th></th>
-                            <th>분류코드</th>
-                            <th>분류명</th>
-                            <th>상품 수</th>
-                            <th>판매가능</th>
-                            <th>이벤트여부</th>
-                            <th></th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-fold">
-                                    <i class="pi pi-angle-right isActive"></i>
-                                </button>
-                            </td>
-                            <td>A0001</td>
-                            <td class="text-left">Food</td>
-                            <td>5</td>
-                            <td>Y</td>
-                            <td>Y</td>
-                            <td><Button outlined label="추가" /></td>
-                        </tr>
-                        <tr class="fold isActive">
-                            <td>
-                                <button type="button" class="btn btn-fold">
-                                    <i class="pi pi-angle-right isActive"></i>
-                                </button>
-                            </td>
-                            <td>A0001</td>
-                            <td class="text-left depth">Food</td>
-                            <td>5</td>
-                            <td>Y</td>
-                            <td>Y</td>
-                            <td><Button outlined label="추가" /></td>
-                        </tr>
-                        <tr class="fold isActive">
-                            <td></td>
-                            <td>A0001</td>
-                            <td class="text-left depth">Food</td>
-                            <td>5</td>
-                            <td>Y</td>
-                            <td>Y</td>
-                            <td></td>
+                            <th>번호</th>
+                            <th>상품코드</th>
+                            <th>이미지</th>
+                            <th>상품명</th>
+                            <th>판매가</th>
+                            <th>판매상태</th>
+                            <th>Hot Pick</th>
+                            <th>인기상품</th>
+                            <th>재고</th>
+                            <th>등록일/수정일</th>
+                            <th>등록자</th>
+                            <th>수정</th>
                         </tr>
                         <tr v-for="item in 5" :key="item">
+                            <td>{{ item }}</td>
+                            <td>10000004</td>
                             <td>
-                                <button type="button" class="btn btn-fold">
-                                    <i class="pi pi-angle-right"></i>
-                                </button>
+                                <img class="thumb-img sm" src="https://images.khan.co.kr/article/2023/08/29/news-p.v1.20230828.53498d1b40ad4d52b31987dac9454409_P1.jpg" />
                             </td>
-                            <td>A0001</td>
-                            <td class="text-left">Food</td>
-                            <td>5</td>
+                            <td>
+                                <span class="text-grey">카테1 > 카테2 > 카테3</span><br />
+                                상품명 샤랄랄라
+                            </td>
+                            <td>$900</td>
                             <td>Y</td>
                             <td>Y</td>
-                            <td><Button outlined label="추가" /></td>
+                            <td>Y</td>
+                            <td>10</td>
+                            <td>2024-05-20</td>
+                            <td>홍길동</td>
+                            <td>
+                                <Button label="수정" outlined />
+                            </td>
                         </tr>
                     </table>
+                </div>
+                <div class="p-paginator p-component mt-2">
+                    <button class="p-paginator-first p-paginator-element p-link p-disabled" type="button" disabled="">
+                    <i class="pi pi-angle-left"></i>
+                    </button>
+                    <button class="p-paginator-prev p-paginator-element p-link p-disabled" type="button" disabled="">
+                    <i class="pi pi-angle-double-left"></i>
+                    </button>
+                    <span class="p-paginator-pages" data-pc-section="pages">
+                    <button class="p-paginator-page p-paginator-element p-link p-highlight" type="button">1</button>
+                    <button class="p-paginator-page p-paginator-element p-link" type="button">2</button>
+                    </span>
+                    <button class="p-paginator-first p-paginator-element p-link" type="button">
+                    <i class="pi pi-angle-right"></i>
+                    </button>
+                    <button class="p-paginator-prev p-paginator-element p-link" type="button">
+                    <i class="pi pi-angle-double-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -96,6 +98,7 @@
 
 <script>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default {
     data() {
@@ -106,6 +109,9 @@ export default {
             { name: 'select3', code: '3' },
         ]),
         dropdownValue: ref(null),
+        calendarValue:'',
+        calendarValue2:'',
+        router: useRouter(),
     };
   },
   components: {},

@@ -70,6 +70,24 @@
                     </table>
                     <div class="table-nodata">검색된 주문이 없습니다.</div>
                 </div>
+                <div class="p-paginator p-component mt-2">
+                    <button class="p-paginator-first p-paginator-element p-link p-disabled" type="button" disabled="">
+                    <i class="pi pi-angle-left"></i>
+                    </button>
+                    <button class="p-paginator-prev p-paginator-element p-link p-disabled" type="button" disabled="">
+                    <i class="pi pi-angle-double-left"></i>
+                    </button>
+                    <span class="p-paginator-pages" data-pc-section="pages">
+                    <button class="p-paginator-page p-paginator-element p-link p-highlight" type="button">1</button>
+                    <button class="p-paginator-page p-paginator-element p-link" type="button">2</button>
+                    </span>
+                    <button class="p-paginator-first p-paginator-element p-link" type="button">
+                    <i class="pi pi-angle-right"></i>
+                    </button>
+                    <button class="p-paginator-prev p-paginator-element p-link" type="button">
+                    <i class="pi pi-angle-double-right"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

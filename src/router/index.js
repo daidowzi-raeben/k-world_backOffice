@@ -14,9 +14,9 @@ const router = createRouter({
                     component: () => import('@/views/setting/ipSetting.vue')
                 },
                 {
-                    path: '/setting/join',
-                    name: 'joinsetting',
-                    component: () => import('@/views/setting/joinSetting.vue')
+                    path: '/setting/terms',
+                    name: 'termssetting',
+                    component: () => import('@/views/setting/termsSetting.vue')
                 },
                 {
                     path: '/setting/menu',
@@ -24,9 +24,9 @@ const router = createRouter({
                     component: () => import('@/views/setting/menuSetting.vue')
                 },
                 {
-                    path: '/setting/personal',
-                    name: 'personalsetting',
-                    component: () => import('@/views/setting/personalSetting.vue')
+                    path: '/setting/private',
+                    name: 'privatesetting',
+                    component: () => import('@/views/setting/privateSetting.vue')
                 },
                 {
                     path: '/setting/service',
@@ -49,7 +49,7 @@ const router = createRouter({
                     component: () => import('@/views/user/userAdd.vue')
                 },
                 {
-                    path: '/user/total',
+                    path: '/user/visit',
                     name: 'visitortotal',
                     component: () => import('@/views/user/visitorTotal.vue')
                 },
@@ -79,7 +79,7 @@ const router = createRouter({
                     component: () => import('@/views/shop/shopSetting.vue')
                 },
                 {
-                    path: '/shop/history',
+                    path: '/shop/order',
                     name: 'orderhistory',
                     component: () => import('@/views/shop/orderHistory.vue')
                 },
@@ -94,14 +94,14 @@ const router = createRouter({
                     component: () => import('@/views/shop/employeeAdd.vue')
                 },
                 {
-                    path: '/shop/classify',
-                    name: 'classifysetting',
-                    component: () => import('@/views/shop/classifySetting.vue')
+                    path: '/shop/category',
+                    name: 'categorysetting',
+                    component: () => import('@/views/shop/categorySetting.vue')
                 },
                 {
-                    path: '/shop/classify/add',
-                    name: 'classifysettingadd',
-                    component: () => import('@/views/shop/classifySettingAdd.vue')
+                    path: '/shop/category/add',
+                    name: 'categorysettingadd',
+                    component: () => import('@/views/shop/categorySettingAdd.vue')
                 },
                 {
                     path: '/shop/productad',
@@ -114,32 +114,32 @@ const router = createRouter({
                     component: () => import('@/views/shop/productAdd.vue')
                 },
                 {
-                    path: '/shop/productRe',
+                    path: '/shop/review',
                     name: 'productreview',
                     component: () => import('@/views/shop/productReview.vue')
                 },
                 {
-                    path: '/shop/productRe/detail',
+                    path: '/shop/review/detail',
                     name: 'productreviewdetail',
                     component: () => import('@/views/shop/productReviewDetail.vue')
                 },
                 {
-                    path: '/shop/productin',
-                    name: 'productinquiry',
-                    component: () => import('@/views/shop/productInquiry.vue')
+                    path: '/shop/qa',
+                    name: 'productqa',
+                    component: () => import('@/views/shop/productQa.vue')
                 },
                 {
-                    path: '/shop/productin/detail',
-                    name: 'productinquirydetail',
-                    component: () => import('@/views/shop/productInquiryDetail.vue')
+                    path: '/shop/productqa/detail',
+                    name: 'productqadetail',
+                    component: () => import('@/views/shop/productQaDetail.vue')
                 },
                 {
-                    path: '/shop/productst',
-                    name: 'productstock',
-                    component: () => import('@/views/shop/productStock.vue')
+                    path: '/shop/inventory',
+                    name: 'productinventory',
+                    component: () => import('@/views/shop/productInventory.vue')
                 },
                 {
-                    path: '/shop/producttp',
+                    path: '/shop/type',
                     name: 'producttype',
                     component: () => import('@/views/shop/productType.vue')
                 },
@@ -164,29 +164,29 @@ const router = createRouter({
                     component: () => import('@/views/sale/saleRanking.vue')
                 },
                 {
-                    path: '/sale/history',
-                    name: 'salehistory',
-                    component: () => import('@/views/sale/saleHistory.vue')
+                    path: '/sale/order',
+                    name: 'saleorder',
+                    component: () => import('@/views/sale/saleOrder.vue')
                 },
                 {
-                    path: '/notice/delivery',
-                    name: 'deliverynotice',
-                    component: () => import('@/views/notice/deliveryNotice.vue')
+                    path: '/policy/delivery',
+                    name: 'deliverypolicy',
+                    component: () => import('@/views/policy/deliveryPolicy.vue')
                 },
                 {
-                    path: '/notice/as',
-                    name: 'asnotice',
-                    component: () => import('@/views/notice/asNotice.vue')
+                    path: '/policy/as',
+                    name: 'aspolicy',
+                    component: () => import('@/views/policy/asPolicy.vue')
                 },
                 {
-                    path: '/notice/refund',
-                    name: 'refundnotice',
-                    component: () => import('@/views/notice/refundNotice.vue')
+                    path: '/policy/refund',
+                    name: 'refundpolicy',
+                    component: () => import('@/views/policy/refundPolicy.vue')
                 },
                 {
-                    path: '/notice/exchange',
-                    name: 'exchangenotice',
-                    component: () => import('@/views/notice/exchangeNotice.vue')
+                    path: '/policy/exchange',
+                    name: 'exchangepolicy',
+                    component: () => import('@/views/policy/exchangePolicy.vue')
                 },
                 {
                     path: '/',

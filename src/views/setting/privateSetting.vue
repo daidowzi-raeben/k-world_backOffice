@@ -6,6 +6,9 @@
                   <div class="col-8">
                     <h4><strong>개인정보처리방침 설정</strong></h4>
                     <Textarea placeholder="Your Message" :autoResize="true" rows="20" class="wd-100" />
+                    <div class="btn-wrap">
+                    <Button label="등록" class="lg" />
+                    </div>
                   </div>
                   <div class="col-4">
                     <h4><strong>개정이력</strong></h4>
