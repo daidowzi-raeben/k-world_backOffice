@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { useLayout } from '@/layout/composables/layout';
 import { useRouter } from 'vue-router';
+import { _isUser } from '@/js/common.js';
 
 const { layoutConfig, onMenuToggle } = useLayout();
 
@@ -9,6 +10,11 @@ const outsideClickListener = ref(null);
 const topbarMenuActive = ref(false);
 const router = useRouter();
 
+const isUser = _isUser();
+
+if (!isUser) {
+    router.push('/login');
+}
 onMounted(() => {
     bindOutsideClickListener();
 });
@@ -54,6 +60,11 @@ const isOutsideClicked = (event) => {
 
     return !(sidebarEl.isSameNode(event.target) || sidebarEl.contains(event.target) || topbarEl.isSameNode(event.target) || topbarEl.contains(event.target));
 };
+
+const onClickLogOut = () => {
+    sessionStorage.clear();
+    router.push('/login');
+};
 </script>
 
 <template>
@@ -75,6 +86,10 @@ const isOutsideClicked = (event) => {
             <button @click="router.push('/auth/login')" class="p-link layout-topbar-button">
                 <i class="pi pi-user"></i>
                 <span>login</span>
+            </button>
+            <button @click="onClickLogOut()" class="p-link layout-topbar-button">
+                <i class="pi pi-sign-out"></i>
+                <span>loout</span>
             </button>
         </div>
     </div>

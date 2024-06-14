@@ -114,8 +114,8 @@ import SummernoteEditor from 'vue3-summernote-editor';
 import '@/assets/styles.scss';
 import jQuery from 'jquery';
 
-import axios from 'axios'
-axios.defaults.baseURL = import.meta.env.VITE_API_URL
+import axios from 'axios';
+// axios.defaults.baseURL = import.meta.env.VITE_API_URL
 
 // import QuillEditor  from 'vue3-quill-editor-vite';
 // import 'vue3-quill-editor-vite/dist/style.css';
@@ -123,6 +123,28 @@ axios.defaults.baseURL = import.meta.env.VITE_API_URL
 
 const app = createApp(App);
 app.config.globalProperties.axios = axios
+
+// 요청 인터셉터
+axios.interceptors.request.use(function (config) {
+    // 1. 요청 전달되기 전 작업 처리
+    // config를 설정할 수 있다
+    // return alert('막아')
+    return config;
+}, function (error) {
+    // 2. 요청 에러가 있는 작업 처리
+    return Promise.reject(error);
+});
+
+// 응답 인터셉터
+axios.interceptors.response.use(function (response) {
+    // 응답 200번대 status일 때 응답 성공 직전 호출
+    // 3. 이 작업 이후 .then()으로 이어진다
+    return response;
+}, function (error) {
+    alert('서버문제 발생, 관리자에게 문의하세요')
+    return Promise.reject(error);
+});
+
 
 window.$ = jQuery;
 
