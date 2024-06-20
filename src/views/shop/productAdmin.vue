@@ -56,7 +56,7 @@
                             <td>
                                 <img class="thumb-img sm" src="https://images.khan.co.kr/article/2023/08/29/news-p.v1.20230828.53498d1b40ad4d52b31987dac9454409_P1.jpg" />
                             </td>
-                            <td>
+                            <td class="text-left">
                                 <span class="text-grey">카테1 > 카테2 > 카테3</span><br />
                                 상품명 샤랄랄라
                             </td>

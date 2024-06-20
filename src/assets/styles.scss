@@ -29,7 +29,7 @@ $gutter: 1rem; //for primeflex grid system
     overflow:auto;
 }
 .p-calendar .p-inputtext{
-    width:130px;
+    width:145px;
 }
 .upload-custom{
     width:100%;
@@ -240,5 +240,28 @@ $gutter: 1rem; //for primeflex grid system
         .p-button{
             margin:0 5px;
         }
+    }
+}
+
+.color-check{
+    input{
+        width:0;
+        height:0;
+        position:absolute;
+        appearance: none;
+    }
+    .color{
+        width:30px;
+        height:30px;
+        display: inline-block;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-right: 8px;
+        border:1px solid #dedede;
+    }
+    & + .btn{
+        font-size: 20px;
+        margin:0 8px 0 -4px;
+        vertical-align: super;
     }
 }
