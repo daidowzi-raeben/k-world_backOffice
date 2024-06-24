@@ -10,6 +10,7 @@
                 <div class="input-wrap">
                     <label class="label">아이디</label>
                     <InputText type="text" placeholder="placeholder" @change="onChangeIsValue('mb_id', $event)"></InputText>
+                    <Button label="중복체크" class="ml-2 md" :disabled="formData?.mb_id ? false : true" />
                 </div>
                 <div class="input-wrap">
                     <label class="label">패스워드</label>
@@ -18,6 +19,7 @@
                 <div class="input-wrap">
                     <label class="label">연락처</label>
                     <Dropdown :filter="true" v-model="listboxValue" :options="listboxValues" optionLabel="name" placeholder="Select" />
+                    <InputText type="text" class="ml-3 wd-sm" placeholder="placeholder" :value="listboxValue?.code ? '+' + listboxValue?.code : ''" readonly @change="onChangeIsValue('mb_nation', $event)"></InputText>
                     <InputText type="text" class="ml-3" placeholder="placeholder" @change="onChangeIsValue('mb_cell', $event)"></InputText>
                 </div>
                 <div class="input-wrap">
@@ -53,11 +55,13 @@
 
 <script>
 import { ref } from 'vue';
+import { mapState, mapActions, mapMutations } from 'vuex';
 import countryList from '../../static/json/country.json';
 
 export default {
     data() {
         return {
+            isSubmitMbId: false,
             dropdownValues: ref([
                 { name: '권한없음', code: '1' },
                 { name: '권한1', code: '2' }
@@ -75,6 +79,9 @@ export default {
     },
     components: {},
     created() {},
+    computed: {
+        ...mapState(['MENU_LIST', 'BRAND_LIST'])
+    },
     mounted() {},
     methods: {
         onChangeIsValue(param, v) {
