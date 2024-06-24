@@ -10,6 +10,7 @@
                         </a>
                     </template>
                 </TabMenu>
+                {{ goods }}
                 <div id="tab1" class="pt-8 pb-8">
                     <div class="input-wrap mt-2">
                         <label class="label">상품코드</label>
@@ -17,23 +18,33 @@
                     </div>
                     <div class="input-wrap">
                         <label class="label">카테고리</label>
-                        <div class="scroll-box" v-for="item in 4" :key="item">
+                        <select size="5" v-model="goods.cate1" style="width: 200px">
+                            <option v-for="(v, i) in MENU_LIST.DEPTH1" :key="i" :value="v?.idx" @click="onClickCategory(2, v?.menu_code)">
+                                {{ v?.menu_en }}
+                            </option>
+                        </select>
+                        <select size="5" v-model="goods.cate2" style="width: 200px">
+                            <option v-for="(v, i) in MENU_LIST.DEPTH2" :key="i" :value="v?.idx">
+                                {{ v?.menu_en }}
+                            </option>
+                        </select>
+                        <!-- <div class="scroll-box" v-for="item in 4" :key="item">
                             <button type="button" class="btn" v-for="item in 20" :key="item">카테고리{{ item }}</button>
                         </div>
                         <div class="ml-4">
                             <Button label="Select" />
-                        </div>
+                        </div> -->
                     </div>
                     <div class="grid mt-0">
                         <div class="col-5">
                             <div class="input-wrap">
                                 <label class="label">노출 여부</label>
                                 <div class="field-radiobutton mb-0">
-                                    <RadioButton id="option1" name="option" value="Yes" v-model="radioValue" />
+                                    <RadioButton id="option1" name="option" v-model="goods.use_yn" value="Y" />
                                     <label for="option1">Yes</label>
                                 </div>
                                 <div class="field-radiobutton mb-0">
-                                    <RadioButton id="option2" name="option" value="No" v-model="radioValue" />
+                                    <RadioButton id="option2" name="option" v-model="goods.use_yn" value="N" />
                                     <label for="option2">No</label>
                                 </div>
                             </div>
@@ -42,11 +53,11 @@
                             <div class="input-wrap">
                                 <label class="label ml-8">판매 여부</label>
                                 <div class="field-radiobutton mb-0">
-                                    <RadioButton id="option3" name="option2" value="Yes" v-model="radioValue2" />
+                                    <RadioButton id="option3" name="option2" value="Y" v-model="goods.sale_yn" />
                                     <label for="option3">Yes</label>
                                 </div>
                                 <div class="field-radiobutton mb-0">
-                                    <RadioButton id="option4" name="option2" value="No" v-model="radioValue2" />
+                                    <RadioButton id="option4" name="option2" value="N" v-model="goods.sale_yn" />
                                     <label for="option4">No</label>
                                 </div>
                             </div>
@@ -55,11 +66,11 @@
                     <div class="input-wrap">
                         <label class="label">상품 상태</label>
                         <div class="field-checkbox mb-0 mr-3">
-                            <Checkbox id="checkOption1" name="option3" value="hotPick" v-model="checkboxValue" />
+                            <Checkbox id="checkOption1" name="option3" value="Y" v-model="goods.hot_yn" />
                             <label for="checkOption1">Hot pick</label>
                         </div>
                         <div class="field-checkbox mb-0">
-                            <Checkbox id="checkOption2" name="option4" value="popular" v-model="checkboxValue2" />
+                            <Checkbox id="checkOption2" name="option4" value="Y" v-model="goods.popular_yn" />
                             <label for="checkOption2">인기상품(검색창)</label>
                         </div>
                     </div>
@@ -70,33 +81,37 @@
                         <div class="col-5">
                             <div class="input-wrap">
                                 <label class="label">브랜드</label>
-                                <InputText type="text" placeholder="placeholder"></InputText>
-                                <Button label="Search" class="ml-2" @click="searchModal = true" />
+                                <InputText type="text" v-model="goods.brand.brand_name" placeholder="placeholder"></InputText>
+                                <Button label="Search" class="ml-2" @click="onClickBrandLoad(null)" />
                                 <Dialog header="브랜드 검색" v-model:visible="searchModal" :modal="true" class="modal-md">
                                     <div class="input-wrap">
                                         <IconField iconPosition="left">
-                                            <InputText type="text" placeholder="Search" />
+                                            <InputText type="text" v-model="search.brand" />
                                             <InputIcon class="pi pi-search" />
                                         </IconField>
-                                        <Button label="Search" class="ml-2" />
+                                        <Button label="Search" class="ml-2" :disabled="search.brand ? false : true" @click="onClickBrandLoad(search.brand)" />
                                     </div>
                                     <div class="table-wrap mt-4">
                                         <table class="table">
                                             <tr>
                                                 <th class="text-left">브랜드명</th>
                                             </tr>
-                                            <tr>
-                                                <td class="text-left">A0001</td>
+                                            <tr v-for="(v, i) in BRAND_LIST" :key="i">
+                                                <td
+                                                    class="text-left"
+                                                    @click="
+                                                        () => {
+                                                            goods.brand = v;
+                                                            searchModal = false;
+                                                        }
+                                                    "
+                                                >
+                                                    {{ v?.brand_name }}
+                                                </td>
                                             </tr>
                                         </table>
                                     </div>
                                 </Dialog>
-                            </div>
-                        </div>
-                        <div class="col-5">
-                            <div class="input-wrap">
-                                <label class="label">상품코드</label>
-                                <InputText type="text" placeholder="placeholder" :disabled="true"></InputText>
                             </div>
                         </div>
                     </div>
@@ -104,7 +119,7 @@
                         <div class="col-12 md:col-5">
                             <div class="input-wrap">
                                 <label class="label">상품명</label>
-                                <InputText type="text" placeholder="placeholder" class="wd-100"></InputText>
+                                <InputText type="text" v-model="goods.goods_name" placeholder="placeholder" class="wd-100"></InputText>
                             </div>
                         </div>
                     </div>
@@ -112,7 +127,7 @@
                         <div class="col-12 md:col-5">
                             <div class="input-wrap">
                                 <label class="label">검색키워드</label>
-                                <InputText type="text" placeholder="placeholder" class="wd-100"></InputText>
+                                <InputText type="text" v-model="goods.goods_tag" placeholder="placeholder" class="wd-100"></InputText>
                             </div>
                             <div class="input-wrap mt-1">
                                 <label class="label"></label>
@@ -122,7 +137,7 @@
                     </div>
                     <div class="input-wrap mt-0">
                         <label class="label">상품노출시간</label>
-                        <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue" dateFormat="yy/mm/dd" placeholder="yyyy/mm/dd" showTime></Calendar>
+                        <Calendar :showIcon="true" :showButtonBar="true" v-model="goods.use_datetime" dateFormat="yy/mm/dd" placeholder="yyyy/mm/dd" showTime></Calendar>
                     </div>
                     <div class="grid mt-0">
                         <div class="col-12">
@@ -384,8 +399,10 @@
                             </div>
                             <div class="input-wrap mt-0">
                                 <label class="label"></label>
-                                <p>*time deal 은 상품 노출시간으로부터 하루 전 시작됩니다.<br />
-                                *이미 노출된 상품은 타임딜이 불가합니다.</p>
+                                <p>
+                                    *time deal 은 상품 노출시간으로부터 하루 전 시작됩니다.<br />
+                                    *이미 노출된 상품은 타임딜이 불가합니다.
+                                </p>
                             </div>
                         </div>
                         <div class="col-5">
@@ -550,16 +567,31 @@
 
 <script>
 import { ref } from 'vue';
-import { VueEditor } from "vue3-editor";
+import { VueEditor } from 'vue3-editor';
 import { useToast } from 'primevue/usetoast';
+import { mapState, mapActions, mapMutations } from 'vuex';
+import axios from 'axios';
 
 export default {
     data() {
         return {
+            search: {
+                brand: ''
+            },
+            goods: {
+                use_yn: 'Y',
+                sale_yn: 'Y',
+                hot_yn: ['Y'],
+                popular_yn: ['Y'],
+                brand: {
+                    brand_name: ''
+                },
+                use_datetime: ''
+            },
             dropdownValues: ref([
                 { name: 'select1', code: '1' },
                 { name: 'select2', code: '2' },
-                { name: 'select3', code: '3' },
+                { name: 'select3', code: '3' }
             ]),
             dropdownValue: ref(null),
             radioValue: 'Yes',
@@ -577,23 +609,23 @@ export default {
             content5: '',
             toast: useToast(),
             colorList: [
-                {color: '#935534', check: false},
-                {color: '#fe1028', check: false},
-                {color: '#ffa73e', check: false},
-                {color: '#fcce46', check: false},
-                {color: '#f6f04a', check: false},
-                {color: '#a0d93a', check: false},
-                {color: '#00b129', check: false},
-                {color: '#708137', check: false},
-                {color: '#89d2e5', check: false},
-                {color: '#0049f3', check: false},
-                {color: '#003383', check: false},
-                {color: '#ffc5da', check: false},
-                {color: '#ffffff', check: false},
-                {color: '#c5c5c5', check: false},
-                {color: '#8c8c8c', check: false},
-                {color: '#000000', check: false},
-             ],
+                { color: '#935534', check: false },
+                { color: '#fe1028', check: false },
+                { color: '#ffa73e', check: false },
+                { color: '#fcce46', check: false },
+                { color: '#f6f04a', check: false },
+                { color: '#a0d93a', check: false },
+                { color: '#00b129', check: false },
+                { color: '#708137', check: false },
+                { color: '#89d2e5', check: false },
+                { color: '#0049f3', check: false },
+                { color: '#003383', check: false },
+                { color: '#ffc5da', check: false },
+                { color: '#ffffff', check: false },
+                { color: '#c5c5c5', check: false },
+                { color: '#8c8c8c', check: false },
+                { color: '#000000', check: false }
+            ],
             checkboxValueTimedeal: '',
             radioValueSoldOut: '1',
             radioValueSaleQuantity: '1',
@@ -634,23 +666,43 @@ export default {
                     label: '상세정보',
                     to: '#tab8'
                 }
-            ]),
+            ])
         };
     },
-  components: {
-    VueEditor
-  },
-  created(){},
-  mounted(){},
-  methods: {
-    onUpload: () => {
-        this.toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
+    computed: {
+        ...mapState(['MENU_LIST', 'BRAND_LIST'])
     },
-  },
+    components: {
+        VueEditor
+    },
+    created() {},
+    mounted() {
+        // 1뎁스 카테고리 출력
+        this.onClickCategory(1);
+    },
+    methods: {
+        ...mapMutations(['MUTATION_MENU_LIST']),
+        ...mapActions(['ACTION_MENU_LIST', 'ACTION_BRAND_LIST']),
+        onUpload: () => {
+            this.toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
+        },
+        onLoadSearch() {},
+        onClickCategory(depth, parentCode) {
+            let param = { mode: 'depth', depth: depth };
+            if (parentCode) param = { mode: 'depth', depth: depth, parentCode: parentCode };
+            this.ACTION_MENU_LIST(param);
+        },
+        async onClickBrandLoad(brand) {
+            console.log('brand', brand);
+            let params = { mode: 'brand' };
+            if (brand) params = { mode: 'brand', brand: brand };
+            await this.ACTION_BRAND_LIST(params);
+            this.searchModal = true;
+        }
+    }
 };
 </script>
 
 
 <style>
-
 </style>
