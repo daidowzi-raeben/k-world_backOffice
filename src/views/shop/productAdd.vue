@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="card">
                 <h4><strong>상품등록</strong></h4>
-                <TabMenu :model="tabMenuItems">
+                <TabMenu :model="tabMenuItems" class="sticky">
                     <template #item="{ item }">
                         <a class="p-menuitem-link" :href="item.to">
                             {{ item.label }}
@@ -11,20 +11,21 @@
                     </template>
                 </TabMenu>
                 {{ goods }}
-                <div id="tab1" class="pt-8 pb-8">
+                <div id="tab1" class="pb-8"></div>
+                <div class="pt-8 pb-8">
                     <div class="input-wrap mt-2">
                         <label class="label">상품코드</label>
                         <InputText type="text" placeholder="placeholder" :disabled="true"></InputText>
                     </div>
                     <div class="input-wrap">
                         <label class="label">카테고리</label>
-                        <select size="5" v-model="goods.cate1" style="width: 200px">
-                            <option v-for="(v, i) in MENU_LIST.DEPTH1" :key="i" :value="v?.idx" @click="onClickCategory(2, v?.menu_code)">
+                        <select size="5" v-model="goods.cate1" class="scroll-box">
+                            <option class="btn" v-for="(v, i) in MENU_LIST.DEPTH1" :key="i" :value="v?.idx" @click="onClickCategory(2, v?.menu_code)">
                                 {{ v?.menu_en }}
                             </option>
                         </select>
-                        <select size="5" v-model="goods.cate2" style="width: 200px">
-                            <option v-for="(v, i) in MENU_LIST.DEPTH2" :key="i" :value="v?.idx">
+                        <select size="5" v-model="goods.cate2" class="scroll-box">
+                            <option class="btn" v-for="(v, i) in MENU_LIST.DEPTH2" :key="i" :value="v?.idx">
                                 {{ v?.menu_en }}
                             </option>
                         </select>
@@ -75,8 +76,8 @@
                         </div>
                     </div>
                 </div>
-                <hr />
-                <div id="tab2" class="pt-8 pb-8">
+                <hr id="tab2" class="mt-7 mb-7" />
+                <div class="pt-8 pb-8">
                     <div class="grid mt-2">
                         <div class="col-5">
                             <div class="input-wrap">
@@ -91,7 +92,7 @@
                                         </IconField>
                                         <Button label="Search" class="ml-2" :disabled="search.brand ? false : true" @click="onClickBrandLoad(search.brand)" />
                                     </div>
-                                    <div class="table-wrap mt-4">
+                                    <div class="table-wrap scroll mt-4">
                                         <table class="table">
                                             <tr>
                                                 <th class="text-left">브랜드명</th>
@@ -99,14 +100,17 @@
                                             <tr v-for="(v, i) in BRAND_LIST" :key="i">
                                                 <td
                                                     class="text-left"
-                                                    @click="
+                                                >
+                                                    <button 
+                                                        class="btn"
+                                                        @click="
                                                         () => {
                                                             goods.brand = v;
                                                             searchModal = false;
-                                                        }
-                                                    "
-                                                >
-                                                    {{ v?.brand_name }}
+                                                        }"
+                                                    >
+                                                        {{ v?.brand_name }}
+                                                    </button>
                                                 </td>
                                             </tr>
                                         </table>
@@ -165,8 +169,8 @@
                         </div>
                     </div>
                 </div>
-                <hr />
-                <div id="tab3" class="pt-8 pb-8">
+                <hr id="tab3" class="mt-7 mb-7" />
+                <div class="pt-8 pb-8">
                     <div class="grid mt-2">
                         <div class="col-5">
                             <div class="input-wrap">
@@ -284,8 +288,8 @@
                         </div>
                     </div>
                 </div>
-                <hr />
-                <div id="tab4" class="pt-8 pb-8">
+                <hr id="tab4" class="mt-7 mb-7" />
+                <div class="pt-8 pb-8">
                     <div class="grid mt-2">
                         <div class="col-5">
                             <div class="input-wrap">
@@ -371,8 +375,8 @@
                         </div>
                     </div>
                 </div>
-                <hr />
-                <div id="tab5" class="pt-8 pb-8">
+                <hr id="tab5" class="mt-7 mb-7" />
+                <div class="pt-8 pb-8">
                     <div class="grid mt-2">
                         <div class="col-5">
                             <div class="input-wrap">
@@ -414,8 +418,8 @@
                         </div>
                     </div>
                 </div>
-                <hr />
-                <div id="tab6" class="pt-8 pb-8">
+                <hr id="tab6" class="mt-7 mb-7" />
+                <div class="pt-8 pb-8">
                     <div class="input-wrap mt-2">
                         <label class="label">옵션사용</label>
                         <div class="field-radiobutton mb-0">
@@ -477,37 +481,82 @@
                         </Dialog>
                     </div>
                 </div>
-                <hr />
-                <div id="tab7" class="pt-8 pb-8">
-                    <div class="input-wrap mt-2">
-                        <label class="label">원본이미지</label>
-                        <div class="upload-custom">
-                            <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept="image/*" :maxFileSize="1000000" customUpload />
+                <hr id="tab7" class="mt-7 mb-7" />
+                <div class="pt-8 pb-8">
+                    <div class="flex">
+                        <div class="field-radiobutton mb-0">
+                            <RadioButton id="uploadMethodImage" name="uploadMethod" value="image" v-model="radioValueUploadMethod" />
+                            <label for="uploadMethodImage">이미지 업로드</label>
+                        </div>
+                        <div class="field-radiobutton mb-0">
+                            <RadioButton id="uploadMethodUrl" name="uploadMethod" value="url" v-model="radioValueUploadMethod" />
+                            <label for="uploadMethodUrl">URL 등록</label>
                         </div>
                     </div>
-                    <div class="input-wrap">
-                        <label class="label">확대이미지</label>
-                        <div class="upload-custom">
-                            <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept="image/*" :maxFileSize="1000000" customUpload />
+                    
+                    <template v-if="radioValueUploadMethod == 'image'">
+                        <div class="input-wrap mt-4">
+                            <label class="label">원본이미지</label>
+                            <div class="upload-custom">
+                                <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept="image/*" :maxFileSize="1000000" customUpload />
+                            </div>
                         </div>
-                        <div class="field-checkbox mb-0 ml-3">
-                            <Checkbox id="original" name="original" value="original" v-model="checkboxValue" />
-                            <label for="original" class="white-space-nowrap">원본이미지로 사용</label>
+                        <div class="input-wrap">
+                            <label class="label">확대이미지</label>
+                            <div class="upload-custom">
+                                <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept="image/*" :maxFileSize="1000000" customUpload />
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-wrap">
-                        <label class="label">썸네일이미지</label>
-                        <div class="upload-custom">
-                            <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept="image/*" :maxFileSize="1000000" customUpload />
+                        <div class="input-wrap mt-1">
+                            <label class="label"></label>
+                            <div class="field-checkbox mb-0">
+                                <Checkbox id="original" name="original" value="original" v-model="checkboxValue" />
+                                <label for="original" class="white-space-nowrap">원본이미지로 사용</label>
+                            </div>
                         </div>
-                        <div class="field-checkbox mb-0 ml-3">
-                            <Checkbox id="original2" name="original2" value="original2" v-model="checkboxValue" />
-                            <label for="original2" class="white-space-nowrap">원본이미지로 사용</label>
+                        <div class="input-wrap">
+                            <label class="label">썸네일이미지</label>
+                            <div class="upload-custom">
+                                <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept="image/*" :maxFileSize="1000000" customUpload />
+                            </div>
                         </div>
-                    </div>
+                        <div class="input-wrap mt-1">
+                            <label class="label"></label>
+                            <div class="field-checkbox mb-0">
+                                <Checkbox id="original2" name="original2" value="original2" v-model="checkboxValue" />
+                                <label for="original2" class="white-space-nowrap">원본이미지로 사용</label>
+                            </div>
+                        </div>
+                    </template>
+                    <template v-else-if="radioValueUploadMethod == 'url'">
+                        <div class="grid mt-2">
+                            <div class="col-10">
+                                <div class="input-wrap">
+                                    <label class="label">원본이미지</label>
+                                    <InputText type="text" placeholder="placeholder" class="wd-100"></InputText>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-10">
+                                <div class="input-wrap">
+                                    <label class="label">확대이미지</label>
+                                    <InputText type="text" placeholder="placeholder" class="wd-100"></InputText>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-10">
+                                <div class="input-wrap">
+                                    <label class="label">썸네일이미지</label>
+                                    <InputText type="text" placeholder="placeholder" class="wd-100"></InputText>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
                 </div>
-                <hr />
-                <div id="tab8" class="pt-8 pb-4">
+                <hr id="tab8" class="mt-7 mb-7" />
+                <div class="pt-8 pb-4">
                     <div class="grid mt-2">
                         <div class="col-10">
                             <div class="input-wrap">
@@ -666,7 +715,8 @@ export default {
                     label: '상세정보',
                     to: '#tab8'
                 }
-            ])
+            ]),
+            radioValueUploadMethod: 'image'
         };
     },
     computed: {
