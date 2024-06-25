@@ -1,5 +1,8 @@
 import { createStore } from 'vuex'
 import axios from 'axios';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 // Create a new store instance.
 const store = createStore({
@@ -9,7 +12,10 @@ const store = createStore({
                 DEPTH1: [],
                 DEPTH2: [],
             },
-            BRAND_LIST: []
+            BRAND_LIST: [],
+            MEMBER: {
+                LIST: []
+            }
         }
     },
     mutations: {
@@ -24,7 +30,11 @@ const store = createStore({
         MUTATION_BRAND_LIST(state, payload) {
             console.log('payload', payload)
             state.BRAND_LIST = payload
-        }
+        },
+        MUTATION_MEMBER_LIST(state, payload) {
+            console.log('payload', payload)
+            state.MEMBER.LIST = payload
+        },
     },
     actions: {
         ACTION_MENU_LIST({ commit }, params) {
@@ -48,6 +58,30 @@ const store = createStore({
                 .then(function (response) {
                     console.log(response?.data);
                     commit('MUTATION_BRAND_LIST', response?.data)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        ACTION_MEMBER_ADD({ commit }, params) {
+            axios
+                .post(`${import.meta.env.VITE_API_URL}/login.php`, params)
+                .then(function (response) {
+                    console.log(response)
+                    alert('등록되었습니다.')
+                    // router.push('/user/list');
+                    location.href = '/user/list'
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        ACTION_MEMBER_LIST({ commit }, params) {
+            axios
+                .post(`${import.meta.env.VITE_API_URL}/member.php`, params)
+                .then(function (response) {
+                    console.log(response)
+                    commit('MUTATION_MEMBER_LIST', response?.data)
                 })
                 .catch(function (error) {
                     console.log(error);

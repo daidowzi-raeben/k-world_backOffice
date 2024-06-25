@@ -44,8 +44,9 @@
                     <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" @change="onChangeIsValue('mb_id', $event)" />
                 </div>
                 <div class="btn-wrap">
-                    <Button label="등록" class="lg" />
+                    <Button label="등록" class="lg" @click="isSubmit()" />
                 </div>
+                ??
                 {{ formData }}
                 {{ calendarValue }}
             </div>
@@ -73,7 +74,8 @@ export default {
             listboxValues: countryList,
             formData: {
                 mb_gender: 'm',
-                mb_birth: null
+                mb_birth: null,
+                mode: 'signUp'
             }
         };
     },
@@ -84,22 +86,14 @@ export default {
     },
     mounted() {},
     methods: {
+        ...mapActions(['ACTION_MEMBER_ADD']),
         onChangeIsValue(param, v) {
             console.log(param, v);
             this.formData[param] = v?.target?.value;
         },
         isSubmit() {
-            this.axios
-                .post(`${import.meta.env.VITE_API_URL}/user.php`, {
-                    firstName: 'Fred',
-                    lastName: 'Flintstone'
-                })
-                .then(function (response) {
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            console.log('??');
+            this.ACTION_MEMBER_ADD(this.formData);
         }
     }
 };

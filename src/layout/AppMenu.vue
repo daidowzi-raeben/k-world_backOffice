@@ -21,7 +21,7 @@ const model = ref([
     {
         label: 'User',
         items: [
-            { label: '☆회원목록', to: '/user/list' },
+            { label: '★회원목록', to: '/user/list' },
             { label: '회원승인', to: '/user/approval' },
             { label: '☆접속자 집계', to: '/user/visit' }
         ]
@@ -62,7 +62,7 @@ const model = ref([
             { label: '☆배송안내', to: '/policy/delivery' },
             { label: '☆AS안내', to: '/policy/as' },
             { label: '☆환불안내', to: '/policy/refund' },
-            { label: '☆교환안내', to: '/policy/exchange' },
+            { label: '☆교환안내', to: '/policy/exchange' }
         ]
     },
     {
