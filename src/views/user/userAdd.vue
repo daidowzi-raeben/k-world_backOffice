@@ -19,7 +19,8 @@
                     </div>
                     <div class="input-wrap">
                         <label class="label">이름</label>
-                        <InputText type="text" required placeholder="placeholder" @change="onChangeIsValue('mb_name', $event)"></InputText>
+                        <InputText type="text" required placeholder="first name" @change="onChangeIsValue('mb_name', $event)"></InputText>
+                        <InputText type="text" class="ml-2" required placeholder="last name" @change="onChangeIsValue('mb_name_last', $event)"></InputText>
                     </div>
                     <div class="input-wrap">
                         <label class="label">패스워드</label>
@@ -85,7 +86,9 @@ export default {
             formData: {
                 mb_gender: 'm',
                 mode: 'signUp',
-                platform: 'k'
+                platform: 'k',
+                agree_sms: 'Y',
+                agree_email: 'Y'
             }
         };
     },
