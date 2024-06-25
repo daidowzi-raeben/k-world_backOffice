@@ -57,7 +57,7 @@
                         </tr>
                     </table>
                 </div>
-                <div class="p-paginator p-component mt-2">
+                <div v-if="MEMBER.LIST?.list?.length > 0" class="p-paginator p-component mt-2">
                     <button class="p-paginator-prev p-paginator-element p-link" type="button" :class="{ 'p-disabled': MEMBER.LIST?.pageNow === 1 }" :disabled="MEMBER.LIST?.pageNow === 1 ? true : false" @click="onClickPageNation(1)">
                         <i class="pi pi-angle-double-left"></i>
                     </button>

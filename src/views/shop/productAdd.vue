@@ -98,16 +98,15 @@
                                                 <th class="text-left">브랜드명</th>
                                             </tr>
                                             <tr v-for="(v, i) in BRAND_LIST" :key="i">
-                                                <td
-                                                    class="text-left"
-                                                >
-                                                    <button 
+                                                <td class="text-left">
+                                                    <button
                                                         class="btn"
                                                         @click="
-                                                        () => {
-                                                            goods.brand = v;
-                                                            searchModal = false;
-                                                        }"
+                                                            () => {
+                                                                goods.brand = v;
+                                                                searchModal = false;
+                                                            }
+                                                        "
                                                     >
                                                         {{ v?.brand_name }}
                                                     </button>
@@ -361,7 +360,7 @@
                             <RadioButton id="salePeriod2" name="salePeriod" value="2" v-model="radioValueSalePeriod" />
                             <label for="salePeriod2">
                                 <span class="mr-2">시작일 / 종료일</span>
-                                <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue" :disabled="radioValueSalePeriod == '1'"></Calendar>
+                                <Calendar :showIcon="true" selectionMode="range" :showButtonBar="true" v-model="calendarValue" :disabled="radioValueSalePeriod == '1'"></Calendar>
                                 <span class="ml-2 mr-2">~</span>
                                 <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue" :disabled="radioValueSalePeriod == '1'"></Calendar>
                             </label>
@@ -493,7 +492,7 @@
                             <label for="uploadMethodUrl">URL 등록</label>
                         </div>
                     </div>
-                    
+
                     <template v-if="radioValueUploadMethod == 'image'">
                         <div class="input-wrap mt-4">
                             <label class="label">원본이미지</label>
@@ -619,7 +618,6 @@ import { ref } from 'vue';
 import { VueEditor } from 'vue3-editor';
 import { useToast } from 'primevue/usetoast';
 import { mapState, mapActions, mapMutations } from 'vuex';
-import axios from 'axios';
 
 export default {
     data() {

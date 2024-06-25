@@ -15,6 +15,9 @@ const store = createStore({
             BRAND_LIST: [],
             MEMBER: {
                 LIST: []
+            },
+            TERM_LIST: {
+                list: []
             }
         }
     },
@@ -34,6 +37,10 @@ const store = createStore({
         MUTATION_MEMBER_LIST(state, payload) {
             console.log('payload', payload)
             state.MEMBER.LIST = payload
+        },
+        MUTATION_TERM_LIST(state, payload) {
+            console.log('payload', payload)
+            state.TERM_LIST = payload
         },
     },
     actions: {
@@ -86,7 +93,31 @@ const store = createStore({
                 .catch(function (error) {
                     console.log(error);
                 });
-        }
+        },
+        ACTION_TERM_LIST({ commit }, params) {
+            axios
+                .post(`${import.meta.env.VITE_API_URL}/term.php`, params)
+                .then(function (response) {
+                    console.log(response)
+                    // alert('등록되었습니다.')
+                    commit('MUTATION_TERM_LIST', response?.data)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        ACTION_TERM_ADD({ commit }, params) {
+            axios
+                .post(`${import.meta.env.VITE_API_URL}/term.php`, params)
+                .then(function (response) {
+                    console.log(response)
+                    alert('등록되었습니다.')
+                    commit('MUTATION_TERM_LIST', response?.data)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
     },
 })
 

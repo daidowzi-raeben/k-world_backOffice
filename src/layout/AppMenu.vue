@@ -11,9 +11,9 @@ const model = ref([
     {
         label: 'Setting',
         items: [
-            { label: '☆회원가입 약관 설정', to: '/setting/terms' },
-            { label: '☆서비스 이용약관 설정', to: '/setting/service' },
-            { label: '☆개인정보처리방침 설정', to: '/setting/private' },
+            { label: '★회원가입 약관 설정', to: '/setting/terms' },
+            { label: '★서비스 이용약관 설정', to: '/setting/service' },
+            { label: '★개인정보처리방침 설정', to: '/setting/private' },
             { label: '접근차단IP 설정', to: '/setting/ip' },
             { label: '메뉴 설정', to: '/setting/menu' }
         ]
