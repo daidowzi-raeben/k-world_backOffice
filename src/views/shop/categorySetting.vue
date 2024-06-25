@@ -26,7 +26,18 @@
 
                 <div class="table-top">
                     <div class="left">Total 10</div>
-                    <div class="right"></div>
+                    <div class="right">
+                        <Button label="등록" severity="secondary" @click="categoryModal=true" />
+                        <Dialog header="분류명 추가" v-model:visible="categoryModal" :modal="true" class="modal-sm">
+                            <div class="input-wrap">
+                                <label class="label">분류명</label>
+                                <InputText type="text" placeholder="placeholder"></InputText>
+                            </div>
+                            <div class="btn-wrap">
+                                <Button label="Add" />
+                            </div>
+                        </Dialog>
+                    </div>
                 </div>
                 <div class="table-wrap">
                     <table class="table">
@@ -50,7 +61,7 @@
                             <td>5</td>
                             <td>Y</td>
                             <td>Y</td>
-                            <td><Button outlined label="추가" /></td>
+                            <td><Button outlined label="추가" @click="categoryModal=true" /></td>
                         </tr>
                         <tr class="fold isActive">
                             <td>
@@ -63,7 +74,7 @@
                             <td>5</td>
                             <td>Y</td>
                             <td>Y</td>
-                            <td><Button outlined label="추가" /></td>
+                            <td><Button outlined label="추가" @click="categoryModal=true" /></td>
                         </tr>
                         <tr class="fold isActive">
                             <td></td>
@@ -85,7 +96,7 @@
                             <td>5</td>
                             <td>Y</td>
                             <td>Y</td>
-                            <td><Button outlined label="추가" /></td>
+                            <td><Button outlined label="추가" @click="categoryModal=true" /></td>
                         </tr>
                     </table>
                 </div>
@@ -124,6 +135,7 @@ export default {
             { name: 'select3', code: '3' },
         ]),
         dropdownValue: ref(null),
+        categoryModal: false,
     };
   },
   components: {},
