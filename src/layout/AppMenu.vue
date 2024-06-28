@@ -59,10 +59,10 @@ const model = ref([
     {
         label: 'Policy',
         items: [
-            { label: '☆배송안내', to: '/policy/delivery' },
-            { label: '☆AS안내', to: '/policy/as' },
-            { label: '☆환불안내', to: '/policy/refund' },
-            { label: '☆교환안내', to: '/policy/exchange' }
+            { label: '★배송안내', to: '/policy/delivery' },
+            { label: '★AS안내', to: '/policy/as' },
+            { label: '★환불안내', to: '/policy/refund' },
+            { label: '★교환안내', to: '/policy/exchange' }
         ]
     },
     {

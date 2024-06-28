@@ -1,5 +1,8 @@
 <template>
     <div class="grid">
+        <div style="width: 100%; height: 300px; background: #fff; position: fixed; top: 0; left: 0; z-index: 9999">
+            {{ goods }}
+        </div>
         <div class="col-12">
             <div class="card">
                 <h4><strong>상품등록</strong></h4>
@@ -10,7 +13,6 @@
                         </a>
                     </template>
                 </TabMenu>
-                {{ goods }}
                 <div id="tab1" class="pb-8"></div>
                 <div class="pt-8 pb-8">
                     <div class="input-wrap mt-2">
@@ -146,23 +148,21 @@
                         <div class="col-12">
                             <div class="input-wrap">
                                 <label class="label">상품대표색상</label>
-                                <div class="color-wrap" v-for="colorListItem in colorList" :key="colorListItem">
+                                <div class="color-wrap" v-for="(v, i) in GOODS.COLOR" :key="i">
                                     <label class="color-check">
-                                        <input type="checkbox" @click="colorListItem.check = !colorListItem.check" />
-                                        <span class="color" :style="'background-color:' + colorListItem.color"></span>
+                                        <input type="checkbox" :id="`color${i}`" name="goddsColor" :value="i" @click="onClickColorSelected(null)" />
+                                        <span class="color" :style="'background-color:' + v.color"></span>
                                     </label>
                                 </div>
                             </div>
                             <div class="input-wrap mt-3">
                                 <label class="label">선택된 색상</label>
-                                <div class="color-wrap" v-for="colorListItem in colorList" :key="colorListItem">
-                                    <template v-if="colorListItem.check">
-                                        <label class="color-check">
-                                            <input type="checkbox" disabled />
-                                            <span class="color" :style="'background-color:' + colorListItem.color"></span>
-                                        </label>
-                                        <button type="button" class="btn" @click="colorListItem.check = !colorListItem.check">&times;</button>
-                                    </template>
+                                <div class="color-wrap" v-for="(v, i) in goods.color" :key="i">
+                                    <label class="color-check">
+                                        <input type="checkbox" disabled />
+                                        <span class="color" :style="'background-color:' + v.color"></span>
+                                    </label>
+                                    <button type="button" :for="`color${i}`" class="btn" @click="onClickColorSelected(v?.sort)">&times;</button>
                                 </div>
                             </div>
                         </div>
@@ -576,7 +576,7 @@
                         <div class="col-10">
                             <div class="input-wrap">
                                 <label class="label">배송안내</label>
-                                <vue-editor v-model="content2" class="wd-100"></vue-editor>
+                                <vue-editor v-model="goods.term.delivery" class="wd-100"></vue-editor>
                             </div>
                         </div>
                     </div>
@@ -584,7 +584,7 @@
                         <div class="col-10">
                             <div class="input-wrap">
                                 <label class="label">AS안내</label>
-                                <vue-editor v-model="content3" class="wd-100"></vue-editor>
+                                <vue-editor v-model="goods.term.as" class="wd-100"></vue-editor>
                             </div>
                         </div>
                     </div>
@@ -592,7 +592,7 @@
                         <div class="col-10">
                             <div class="input-wrap">
                                 <label class="label">환불안내</label>
-                                <vue-editor v-model="content4" class="wd-100"></vue-editor>
+                                <vue-editor v-model="goods.term.refund" class="wd-100"></vue-editor>
                             </div>
                         </div>
                     </div>
@@ -600,7 +600,7 @@
                         <div class="col-10">
                             <div class="input-wrap">
                                 <label class="label">교환안내</label>
-                                <vue-editor v-model="content5" class="wd-100"></vue-editor>
+                                <vue-editor v-model="goods.term.exchange" class="wd-100"></vue-editor>
                             </div>
                         </div>
                     </div>
@@ -633,7 +633,15 @@ export default {
                 brand: {
                     brand_name: ''
                 },
-                use_datetime: ''
+                use_datetime: '',
+                term: {
+                    delivery: '',
+                    as: '',
+                    exchange: '',
+                    refund: ''
+                },
+                color: [],
+                info: {}
             },
             dropdownValues: ref([
                 { name: 'select1', code: '1' },
@@ -655,24 +663,6 @@ export default {
             content4: '',
             content5: '',
             toast: useToast(),
-            colorList: [
-                { color: '#935534', check: false },
-                { color: '#fe1028', check: false },
-                { color: '#ffa73e', check: false },
-                { color: '#fcce46', check: false },
-                { color: '#f6f04a', check: false },
-                { color: '#a0d93a', check: false },
-                { color: '#00b129', check: false },
-                { color: '#708137', check: false },
-                { color: '#89d2e5', check: false },
-                { color: '#0049f3', check: false },
-                { color: '#003383', check: false },
-                { color: '#ffc5da', check: false },
-                { color: '#ffffff', check: false },
-                { color: '#c5c5c5', check: false },
-                { color: '#8c8c8c', check: false },
-                { color: '#000000', check: false }
-            ],
             checkboxValueTimedeal: '',
             radioValueSoldOut: '1',
             radioValueSaleQuantity: '1',
@@ -717,9 +707,24 @@ export default {
             radioValueUploadMethod: 'image'
         };
     },
-    computed: {
-        ...mapState(['MENU_LIST', 'BRAND_LIST'])
+    watch: {
+        'GOODS.TERM': {
+            handler(v) {
+                this.goods.term = {
+                    delivery: v?.delivery?.content,
+                    as: v?.as?.content,
+                    exchange: v?.exchange?.content,
+                    refund: v?.refund?.content
+                };
+            },
+            deep: true,
+            immediate: true
+        }
     },
+    computed: {
+        ...mapState(['MENU_LIST', 'BRAND_LIST', 'GOODS'])
+    },
+
     components: {
         VueEditor
     },
@@ -727,10 +732,16 @@ export default {
     mounted() {
         // 1뎁스 카테고리 출력
         this.onClickCategory(1);
+
+        // term 정보 추출
+        this.ACTION_TERM_GOODS({ mode: 'goods_once' });
+
+        // color 정보 추출
+        this.ACTION_COLOR_LIST({ mode: 'color' });
     },
     methods: {
         ...mapMutations(['MUTATION_MENU_LIST']),
-        ...mapActions(['ACTION_MENU_LIST', 'ACTION_BRAND_LIST']),
+        ...mapActions(['ACTION_MENU_LIST', 'ACTION_BRAND_LIST', 'ACTION_TERM_GOODS', 'ACTION_COLOR_LIST']),
         onUpload: () => {
             this.toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
         },
@@ -746,6 +757,25 @@ export default {
             if (brand) params = { mode: 'brand', brand: brand };
             await this.ACTION_BRAND_LIST(params);
             this.searchModal = true;
+        },
+        onClickColorSelected(idx) {
+            this.goods.color = [];
+            const list = document.getElementsByName('goddsColor');
+            if (idx !== null) {
+                console.log(`color${idx}`, $(`input[id=color${idx}]`));
+                $(`input[id=color${idx}]`).prop('checked', false);
+            }
+            list.forEach((v, i) => {
+                if (v.checked) {
+                    this.goods.color.push({
+                        color: this.GOODS.COLOR[i]?.color,
+                        idx: this.GOODS.COLOR[i]?.idx,
+                        sort: i
+                    });
+                }
+            });
+
+            // [0].checked
         }
     }
 };

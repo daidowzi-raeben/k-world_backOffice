@@ -18,6 +18,15 @@ const store = createStore({
             },
             TERM_LIST: {
                 list: []
+            },
+            GOODS: {
+                COLOR: [],
+                TERM: {
+                    delivery: {},
+                    as: {},
+                    exchange: {},
+                    refund: {},
+                }
             }
         }
     },
@@ -41,6 +50,18 @@ const store = createStore({
         MUTATION_TERM_LIST(state, payload) {
             console.log('payload', payload)
             state.TERM_LIST = payload
+        },
+        MUTATION_TERM_GOODS(state, payload) {
+            console.log('payload', payload)
+            state.GOODS.TERM = payload
+        },
+        MUTATION_COLOR_LIST(state, payload) {
+            console.log('payload', payload)
+            state.GOODS.COLOR = payload
+            state.GOODS.COLOR.forEach((v, i) => {
+                state.GOODS.COLOR[i]['check'] = false
+                state.GOODS.COLOR[i]['color'] = state.GOODS.COLOR[i].color_code
+            });
         },
     },
     actions: {
@@ -113,6 +134,28 @@ const store = createStore({
                     console.log(response)
                     alert('등록되었습니다.')
                     commit('MUTATION_TERM_LIST', response?.data)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        ACTION_TERM_GOODS({ commit }, params) {
+            axios
+                .post(`${import.meta.env.VITE_API_URL}/term.php`, params)
+                .then(function (response) {
+                    console.log(response)
+                    commit('MUTATION_TERM_GOODS', response?.data)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        ACTION_COLOR_LIST({ commit }, params) {
+            axios
+                .post(`${import.meta.env.VITE_API_URL}/goods.php`, params)
+                .then(function (response) {
+                    console.log(response?.data);
+                    commit('MUTATION_COLOR_LIST', response?.data)
                 })
                 .catch(function (error) {
                     console.log(error);

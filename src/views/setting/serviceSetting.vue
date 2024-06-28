@@ -24,7 +24,7 @@
                                 <tr v-for="(v, i) in TERM_LIST?.list" :key="i">
                                     <td>{{ onLoadDateDot(v?.c_datetime) }}</td>
                                     <td>{{ v?.mb_name }}</td>
-                                    <td><Button label="적용하기" @click="addData.content = v?.content" /></td>
+                                    <td><Button :label="i === 0 ? '적용중' : '적용하기'" @click="addData.content = v?.content" /></td>
                                 </tr>
                                 <tr v-show="TERM_LIST?.list?.length === 0">
                                     <td colspan="3">No Data</td>

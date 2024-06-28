@@ -27,7 +27,7 @@
                 <div class="table-top">
                     <div class="left">Total 10</div>
                     <div class="right">
-                        <Button label="등록" severity="secondary" @click="categoryModal=true" />
+                        <Button label="등록" severity="secondary" @click="categoryModal = true" />
                         <Dialog header="분류명 추가" v-model:visible="categoryModal" :modal="true" class="modal-sm">
                             <div class="input-wrap">
                                 <label class="label">분류명</label>
@@ -50,33 +50,34 @@
                             <th>이벤트여부</th>
                             <th></th>
                         </tr>
-                        <tr>
-                            <td>
-                                <button type="button" class="btn btn-fold">
-                                    <i class="pi pi-angle-right isActive"></i>
-                                </button>
-                            </td>
-                            <td>A0001</td>
-                            <td class="text-left">Food</td>
-                            <td>5</td>
-                            <td>Y</td>
-                            <td>Y</td>
-                            <td><Button outlined label="추가" @click="categoryModal=true" /></td>
-                        </tr>
-                        <tr class="fold isActive">
-                            <td>
-                                <button type="button" class="btn btn-fold">
-                                    <i class="pi pi-angle-right isActive"></i>
-                                </button>
-                            </td>
-                            <td>A0001</td>
-                            <td class="text-left depth">Food</td>
-                            <td>5</td>
-                            <td>Y</td>
-                            <td>Y</td>
-                            <td><Button outlined label="추가" @click="categoryModal=true" /></td>
-                        </tr>
-                        <tr class="fold isActive">
+                        <template v-for="(v, i) in MENU_LIST.DEPTH1" :key="i">
+                            <tr>
+                                <td>
+                                    <button type="button" class="btn btn-fold">
+                                        <i class="pi pi-angle-right isActive"></i>
+                                    </button>
+                                </td>
+                                <td>{{ v?.menu_code }}</td>
+                                <td class="text-left">{{ v?.menu_en }}</td>
+                                <td>0</td>
+                                <td>{{ v?.use_yn }}</td>
+                                <td><Button outlined label="추가" @click="categoryModal = true" /></td>
+                            </tr>
+                            <template v-if="v?.child?.length > 0">
+                                <tr v-for="(x, j) in v?.child" :key="j" class="fold isActive">
+                                    <td>
+                                        <!-- <button type="button" class="btn btn-fold">
+                                            <i class="pi pi-angle-right isActive"></i>
+                                        </button> -->
+                                    </td>
+                                    <td>{{ x?.menu_code }}</td>
+                                    <td class="text-left depth">{{ x?.menu_en }}</td>
+                                    <td>0</td>
+                                    <td>{{ x?.use_yn }}</td>
+                                    <td></td>
+                                </tr>
+                            </template>
+                            <!-- <tr class="fold isActive">
                             <td></td>
                             <td>A0001</td>
                             <td class="text-left depth">Food</td>
@@ -84,8 +85,9 @@
                             <td>Y</td>
                             <td>Y</td>
                             <td></td>
-                        </tr>
-                        <tr v-for="item in 5" :key="item">
+                        </tr> -->
+                        </template>
+                        <!-- <tr v-for="item in 5" :key="item">
                             <td>
                                 <button type="button" class="btn btn-fold">
                                     <i class="pi pi-angle-right"></i>
@@ -96,26 +98,26 @@
                             <td>5</td>
                             <td>Y</td>
                             <td>Y</td>
-                            <td><Button outlined label="추가" @click="categoryModal=true" /></td>
-                        </tr>
+                            <td><Button outlined label="추가" @click="categoryModal = true" /></td>
+                        </tr> -->
                     </table>
                 </div>
                 <div class="p-paginator p-component mt-2">
                     <button class="p-paginator-first p-paginator-element p-link p-disabled" type="button" disabled="">
-                    <i class="pi pi-angle-left"></i>
+                        <i class="pi pi-angle-left"></i>
                     </button>
                     <button class="p-paginator-prev p-paginator-element p-link p-disabled" type="button" disabled="">
-                    <i class="pi pi-angle-double-left"></i>
+                        <i class="pi pi-angle-double-left"></i>
                     </button>
                     <span class="p-paginator-pages" data-pc-section="pages">
-                    <button class="p-paginator-page p-paginator-element p-link p-highlight" type="button">1</button>
-                    <button class="p-paginator-page p-paginator-element p-link" type="button">2</button>
+                        <button class="p-paginator-page p-paginator-element p-link p-highlight" type="button">1</button>
+                        <button class="p-paginator-page p-paginator-element p-link" type="button">2</button>
                     </span>
                     <button class="p-paginator-first p-paginator-element p-link" type="button">
-                    <i class="pi pi-angle-right"></i>
+                        <i class="pi pi-angle-right"></i>
                     </button>
                     <button class="p-paginator-prev p-paginator-element p-link" type="button">
-                    <i class="pi pi-angle-double-right"></i>
+                        <i class="pi pi-angle-double-right"></i>
                     </button>
                 </div>
             </div>
@@ -125,30 +127,33 @@
 
 <script>
 import { ref } from 'vue';
-
+import { mapState, mapActions, mapMutations } from 'vuex';
 export default {
     data() {
-    return {
-        dropdownValues: ref([
-            { name: 'select1', code: '1' },
-            { name: 'select2', code: '2' },
-            { name: 'select3', code: '3' },
-        ]),
-        dropdownValue: ref(null),
-        categoryModal: false,
-    };
-  },
-  components: {},
-  created(){},
-  mounted() {
-    
-  },
-  methods: {
-  },
+        return {
+            dropdownValues: ref([
+                { name: 'select1', code: '1' },
+                { name: 'select2', code: '2' },
+                { name: 'select3', code: '3' }
+            ]),
+            dropdownValue: ref(null),
+            categoryModal: false
+        };
+    },
+    computed: {
+        ...mapState(['MENU_LIST'])
+    },
+    created() {},
+    mounted() {
+        let param = { mode: 'category' };
+        this.ACTION_MENU_LIST(param);
+    },
+    methods: {
+        ...mapActions(['ACTION_MENU_LIST'])
+    }
 };
 </script>
 
 
 <style>
-
 </style>
