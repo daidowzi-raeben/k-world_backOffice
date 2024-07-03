@@ -8,6 +8,7 @@ const router = useRouter();
 const store = createStore({
     state() {
         return {
+            TEST: {},
             MENU_LIST: {
                 DEPTH1: [],
                 DEPTH2: [],
@@ -62,6 +63,9 @@ const store = createStore({
                 state.GOODS.COLOR[i]['check'] = false
                 state.GOODS.COLOR[i]['color'] = state.GOODS.COLOR[i].color_code
             });
+        },
+        MUTATION_TEST(state, payload) {
+            state.TEST = payload
         },
     },
     actions: {
@@ -156,6 +160,17 @@ const store = createStore({
                 .then(function (response) {
                     console.log(response?.data);
                     commit('MUTATION_COLOR_LIST', response?.data)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        ACTION_TEST({ commit }, params) {
+            axios
+                .post('/testApi', params)
+                .then(function (response) {
+                    console.log(response?.data);
+                    commit('MUTATION_TEST', response?.data)
                 })
                 .catch(function (error) {
                     console.log(error);
