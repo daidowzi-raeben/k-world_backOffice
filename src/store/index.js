@@ -167,7 +167,7 @@ const store = createStore({
         },
         ACTION_TEST({ commit }, params) {
             axios
-                .post('https://kr.trip.com/restapi/soa2/27015/FlightListSearch?x-traceID=1710205163015.326epKjcT9bJ-1719990960981-1362392875', params)
+                .post(`https://kr.trip.com/restapi/soa2/27015/FlightListSearch?x-traceID=${Date.now()}.326epKjcT9bJ-1719990960981-1362392875`, params)
                 .then(function (response) {
                     console.log(response?.data);
                     commit('MUTATION_TEST', response?.data)
