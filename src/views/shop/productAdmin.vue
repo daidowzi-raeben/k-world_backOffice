@@ -29,9 +29,9 @@
                 </div>
 
                 <div class="table-top">
-                    <div class="left">Total 10</div>
+                    <div class="left">Total {{ GOODS.LIST?.total }}</div>
                     <div class="right">
-                        <Button label="상품등록" severity="secondary" @click="router.push('/shop/product/add')"  />
+                        <Button label="상품등록" severity="secondary" @click="router.push('/shop/product/add')" />
                     </div>
                 </div>
                 <div class="table-wrap">
@@ -50,21 +50,24 @@
                             <th>등록자</th>
                             <th>수정</th>
                         </tr>
-                        <tr v-for="item in 5" :key="item">
-                            <td>{{ item }}</td>
-                            <td>10000004</td>
+                        <tr v-for="(v, i) in GOODS.LIST?.data" :key="i">
+                            <td>{{ i + 1 + nowPage }}</td>
+                            <td>{{ v?.goods_code }}</td>
                             <td>
-                                <img class="thumb-img sm" src="https://images.khan.co.kr/article/2023/08/29/news-p.v1.20230828.53498d1b40ad4d52b31987dac9454409_P1.jpg" />
+                                <div v-for="(z, x) in v?.img_list" :key="x">
+                                    <img v-if="z?.img_code === 'T'" class="thumb-img sm" :src="z?.img_url" />
+                                </div>
                             </td>
                             <td class="text-left">
-                                <span class="text-grey">카테1 > 카테2 > 카테3</span><br />
-                                상품명 샤랄랄라
+                                <span class="text-grey">{{ v?.depth1_name }} &gt; {{ v?.depth2_name }}</span
+                                ><br />
+                                [{{ v?.brand_name }}] {{ v?.goods_name }}
                             </td>
-                            <td>$900</td>
+                            <td>${{ v?.goods_amt }}</td>
                             <td>Y</td>
                             <td>Y</td>
                             <td>Y</td>
-                            <td>10</td>
+                            <td>{{ v?.goods_inven }}</td>
                             <td>2024-05-20</td>
                             <td>홍길동</td>
                             <td>
@@ -73,22 +76,50 @@
                         </tr>
                     </table>
                 </div>
-                <div class="p-paginator p-component mt-2">
-                    <button class="p-paginator-first p-paginator-element p-link p-disabled" type="button" disabled="">
-                    <i class="pi pi-angle-left"></i>
+                <div v-if="GOODS.LIST?.data?.length > 0" class="p-paginator p-component mt-2">
+                    <button class="p-paginator-prev p-paginator-element p-link" type="button" :class="{ 'p-disabled': GOODS.LIST?.pageNow === 1 }" :disabled="GOODS.LIST?.pageNow === 1 ? true : false" @click="onClickPageNation(1)">
+                        <i class="pi pi-angle-double-left"></i>
                     </button>
-                    <button class="p-paginator-prev p-paginator-element p-link p-disabled" type="button" disabled="">
-                    <i class="pi pi-angle-double-left"></i>
+                    <button
+                        class="p-paginator-first p-paginator-element p-link"
+                        :class="{ 'p-disabled': GOODS.LIST?.pageNow === 1 }"
+                        :disabled="GOODS.LIST?.pageNow === 1 ? true : false"
+                        type="button"
+                        @click="onClickPageNation(GOODS.LIST?.pageNow - 1)"
+                    >
+                        <i class="pi pi-angle-left"></i>
                     </button>
                     <span class="p-paginator-pages" data-pc-section="pages">
-                    <button class="p-paginator-page p-paginator-element p-link p-highlight" type="button">1</button>
-                    <button class="p-paginator-page p-paginator-element p-link" type="button">2</button>
+                        <!-- pageNow -->
+                        <template v-for="i in 10" :key="i">
+                            <button
+                                v-if="GOODS.LIST?.page >= i + GOODS.LIST?.pageNow - 1"
+                                :class="{ 'p-highlight': GOODS.LIST?.pageNow === i + GOODS.LIST?.pageNow - 1 }"
+                                class="p-paginator-page p-paginator-element p-link"
+                                type="button"
+                                @click="onClickPageNation(i + GOODS.LIST?.pageNow - 1)"
+                            >
+                                {{ i + GOODS.LIST?.pageNow - 1 }}
+                            </button>
+                        </template>
                     </span>
-                    <button class="p-paginator-first p-paginator-element p-link" type="button">
-                    <i class="pi pi-angle-right"></i>
+                    <button
+                        class="p-paginator-first p-paginator-element p-link"
+                        type="button"
+                        :class="{ 'p-disabled': GOODS.LIST?.pageNow === GOODS.LIST?.page }"
+                        :disabled="GOODS.LIST?.pageNow === GOODS.LIST?.page ? true : false"
+                        @click="onClickPageNation(GOODS.LIST?.pageNow + 1)"
+                    >
+                        <i class="pi pi-angle-right"></i>
                     </button>
-                    <button class="p-paginator-prev p-paginator-element p-link" type="button">
-                    <i class="pi pi-angle-double-right"></i>
+                    <button
+                        class="p-paginator-prev p-paginator-element p-link"
+                        type="button"
+                        :class="{ 'p-disabled': GOODS.LIST?.pageNow === GOODS.LIST?.page }"
+                        :disabled="GOODS.LIST?.pageNow === GOODS.LIST?.page ? true : false"
+                        @click="onClickPageNation(GOODS.LIST?.page)"
+                    >
+                        <i class="pi pi-angle-double-right"></i>
                     </button>
                 </div>
             </div>
@@ -99,32 +130,69 @@
 <script>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { mapState, mapActions, mapMutations } from 'vuex';
+import { _dateFormatYmdDot } from '@/js/common.js';
 
 export default {
     data() {
-    return {
-        dropdownValues: ref([
-            { name: 'select1', code: '1' },
-            { name: 'select2', code: '2' },
-            { name: 'select3', code: '3' },
-        ]),
-        dropdownValue: ref(null),
-        calendarValue:'',
-        calendarValue2:'',
-        router: useRouter(),
-    };
-  },
-  components: {},
-  created(){},
-  mounted() {
-    
-  },
-  methods: {
-  },
+        return {
+            nowPage: 0,
+            dropdownValues: ref([
+                { name: 'select1', code: '1' },
+                { name: 'select2', code: '2' },
+                { name: 'select3', code: '3' }
+            ]),
+            dropdownValue: ref(null),
+            calendarValue: '',
+            calendarValue2: '',
+            router: useRouter()
+        };
+    },
+    computed: {
+        ...mapState(['GOODS'])
+    },
+    components: {},
+    created() {},
+    mounted() {
+        this.ACTION_GOODS_LIST({ mode: 'list', cate: '5790757' });
+    },
+    methods: {
+        ...mapActions(['ACTION_GOODS_LIST']),
+        async onClickPageNation(p, n) {
+            const params = {
+                mode: 'list',
+                page: p,
+                cate: '5790757'
+            };
+
+            if (this.$route.query?.t) {
+                params[this.$route.query?.t] = this.$route.query?.q;
+            }
+
+            await this.ACTION_GOODS_LIST(params);
+            this.nowPage = (p - 1) * 10;
+        },
+        onSubmitSearch() {
+            const params = {
+                mode: 'list',
+                cate: '5790757'
+            };
+            params[this.dropdownValue.code] = this.searchStr;
+
+            this.ACTION_MEMBER_LIST(params);
+            this.router.push(`/shop/productad?t=${this.dropdownValue.code}&q=${this.searchStr}`);
+            // this.onClickPageNation(1);
+        },
+        onClickResetSearch() {
+            this.router.push(`/shop/productad`);
+            this.searchStr = '';
+            this.dropdownValue = { name: 'id', code: 'mb_id' };
+            this.ACTION_MEMBER_LIST({ mode: 'list' });
+        }
+    }
 };
 </script>
 
 
 <style>
-
 </style>

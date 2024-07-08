@@ -50,7 +50,7 @@
                             <th>이벤트여부</th>
                             <th></th>
                         </tr>
-                        <template v-for="(v, i) in MENU_LIST.DEPTH1" :key="i">
+                        <template v-for="(v, i) in MENU_LIST.DEPTH1?.data" :key="i">
                             <tr>
                                 <td>
                                     <button type="button" class="btn btn-fold">
@@ -59,7 +59,7 @@
                                 </td>
                                 <td>{{ v?.menu_code }}</td>
                                 <td class="text-left">{{ v?.menu_en }}</td>
-                                <td>0</td>
+                                <td>{{ v?.total_cnt }}</td>
                                 <td>{{ v?.use_yn }}</td>
                                 <td><Button outlined label="추가" @click="categoryModal = true" /></td>
                             </tr>
@@ -72,7 +72,7 @@
                                     </td>
                                     <td>{{ x?.menu_code }}</td>
                                     <td class="text-left depth">{{ x?.menu_en }}</td>
-                                    <td>0</td>
+                                    <td>{{ x?.total_cnt }}</td>
                                     <td>{{ x?.use_yn }}</td>
                                     <td></td>
                                 </tr>

@@ -21,6 +21,7 @@ const store = createStore({
                 list: []
             },
             GOODS: {
+                LIST: {},
                 COLOR: [],
                 TERM: {
                     delivery: {},
@@ -64,9 +65,11 @@ const store = createStore({
                 state.GOODS.COLOR[i]['color'] = state.GOODS.COLOR[i].color_code
             });
         },
-        MUTATION_TEST(state, payload) {
-            state.TEST = payload
+        MUTATION_GOODS_LIST(state, payload) {
+            console.log('payload', payload)
+            state.GOODS.LIST = payload
         },
+
     },
     actions: {
         ACTION_MENU_LIST({ commit }, params) {
@@ -165,17 +168,18 @@ const store = createStore({
                     console.log(error);
                 });
         },
-        ACTION_TEST({ commit }, params) {
+        ACTION_GOODS_LIST({ commit }, params) {
             axios
-                .post(`https://kr.trip.com/restapi/soa2/27015/FlightListSearch?x-traceID=${Date.now()}.326epKjcT9bJ-1719990960981-1362392875`, params)
+                .post(`${import.meta.env.VITE_API_URL}/goods.php`, params)
                 .then(function (response) {
-                    console.log(response?.data);
-                    commit('MUTATION_TEST', response?.data)
+                    console.log(response)
+                    commit('MUTATION_GOODS_LIST', response?.data)
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
         },
+
     },
 })
 

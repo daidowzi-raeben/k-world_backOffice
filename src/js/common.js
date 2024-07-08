@@ -2,6 +2,11 @@ export const _isUser = () => {
     return sessionStorage.getItem('user_id');
 }
 
+
+export const _comma = (v) => {
+    return v.toLocaleString('ko-KR')
+}
+
 export const _dateFormatYmd = (v) => {
     const date = new Date(v);
     const year = date.getFullYear();
@@ -19,3 +24,5 @@ export const _dateFormatYmdDot = (v) => {
     const dateStr = `${year}.${month}.${day}`;
     return dateStr;
 }
+
+
