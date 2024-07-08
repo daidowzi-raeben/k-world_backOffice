@@ -68,7 +68,7 @@
                             <td>Y</td>
                             <td>Y</td>
                             <td>{{ v?.goods_inven }}</td>
-                            <td>2024-05-20</td>
+                            <td class="white-space-nowrap">2024-05-20</td>
                             <td>홍길동</td>
                             <td>
                                 <Button label="수정" outlined />
