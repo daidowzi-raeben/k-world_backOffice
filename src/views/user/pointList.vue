@@ -2,7 +2,7 @@
     <div class="grid">
         <div class="col-12">
             <div class="card">
-                <h4><strong>회원 목록</strong></h4>
+                <h4><strong>point list</strong></h4>
                 <form @submit.prevent="onSubmitSearch">
                     <div class="search-wrap grid">
                         <div class="left">
@@ -27,10 +27,10 @@
                 </form>
 
                 <div class="table-top">
-                    <div class="left">Total {{ MEMBER.LIST?.total }}</div>
+                    <div class="left">Total {{ POINT.LIST?.total }}</div>
                     <div class="right">
                         <!-- <Button label="숨김해제" severity="secondary" class="mr-2" /> -->
-                        <Button label="등록" severity="secondary" @click="router.push('/seller/add')" />
+                        <Button label="등록" severity="secondary" @click="router.push('/user/add')" />
                     </div>
                 </div>
                 <div class="table-wrap">
@@ -46,7 +46,7 @@
                             <th>생년월일</th>
                             <th>판매수</th>
                         </tr>
-                        <tr v-for="(v, i) in MEMBER.LIST?.list" :key="i">
+                        <tr v-for="(v, i) in POINT.LIST?.data" :key="i">
                             <td>{{ v?.idnt_code }}</td>
                             <td>{{ onLoadPlatform(v?.platform) }}</td>
                             <td>{{ v?.mb_id }}</td>
@@ -59,40 +59,40 @@
                         </tr>
                     </table>
                 </div>
-                <div v-if="MEMBER.LIST?.list?.length > 0" class="p-paginator p-component mt-2">
-                    <button class="p-paginator-prev p-paginator-element p-link" type="button" :class="{ 'p-disabled': MEMBER.LIST?.pageNow === 1 }" :disabled="MEMBER.LIST?.pageNow === 1 ? true : false" @click="onClickPageNation(1)">
+                <div v-if="POINT.LIST?.list?.length > 0" class="p-paginator p-component mt-2">
+                    <button class="p-paginator-prev p-paginator-element p-link" type="button" :class="{ 'p-disabled': POINT.LIST?.pageNow === 1 }" :disabled="POINT.LIST?.pageNow === 1 ? true : false" @click="onClickPageNation(1)">
                         <i class="pi pi-angle-double-left"></i>
                     </button>
                     <button
                         class="p-paginator-first p-paginator-element p-link"
-                        :class="{ 'p-disabled': MEMBER.LIST?.pageNow === 1 }"
-                        :disabled="MEMBER.LIST?.pageNow === 1 ? true : false"
+                        :class="{ 'p-disabled': POINT.LIST?.pageNow === 1 }"
+                        :disabled="POINT.LIST?.pageNow === 1 ? true : false"
                         type="button"
-                        @click="onClickPageNation(MEMBER.LIST?.pageNow - 1)"
+                        @click="onClickPageNation(POINT.LIST?.pageNow - 1)"
                     >
                         <i class="pi pi-angle-left"></i>
                     </button>
                     <span class="p-paginator-pages" data-pc-section="pages">
                         <!-- pageNow -->
-                        <button v-for="(v, i) in MEMBER.LIST?.page" :key="i" :class="{ 'p-highlight': MEMBER.LIST?.pageNow === i + 1 }" class="p-paginator-page p-paginator-element p-link" type="button" @click="onClickPageNation(i + 1)">
+                        <button v-for="(v, i) in POINT.LIST?.page" :key="i" :class="{ 'p-highlight': POINT.LIST?.pageNow === i + 1 }" class="p-paginator-page p-paginator-element p-link" type="button" @click="onClickPageNation(i + 1)">
                             {{ i + 1 }}
                         </button>
                     </span>
                     <button
                         class="p-paginator-first p-paginator-element p-link"
                         type="button"
-                        :class="{ 'p-disabled': MEMBER.LIST?.pageNow === MEMBER.LIST?.page }"
-                        :disabled="MEMBER.LIST?.pageNow === MEMBER.LIST?.page ? true : false"
-                        @click="onClickPageNation(MEMBER.LIST?.pageNow + 1)"
+                        :class="{ 'p-disabled': POINT.LIST?.pageNow === POINT.LIST?.page }"
+                        :disabled="POINT.LIST?.pageNow === POINT.LIST?.page ? true : false"
+                        @click="onClickPageNation(POINT.LIST?.pageNow + 1)"
                     >
                         <i class="pi pi-angle-right"></i>
                     </button>
                     <button
                         class="p-paginator-prev p-paginator-element p-link"
                         type="button"
-                        :class="{ 'p-disabled': MEMBER.LIST?.pageNow === MEMBER.LIST?.page }"
-                        :disabled="MEMBER.LIST?.pageNow === MEMBER.LIST?.page ? true : false"
-                        @click="onClickPageNation(MEMBER.LIST?.page)"
+                        :class="{ 'p-disabled': POINT.LIST?.pageNow === POINT.LIST?.page }"
+                        :disabled="POINT.LIST?.pageNow === POINT.LIST?.page ? true : false"
+                        @click="onClickPageNation(POINT.LIST?.page)"
                     >
                         <i class="pi pi-angle-double-right"></i>
                     </button>
@@ -123,15 +123,15 @@ export default {
         };
     },
     computed: {
-        ...mapState(['MEMBER'])
+        ...mapState(['POINT'])
     },
     components: {},
     created() {},
     mounted() {
-        this.ACTION_MEMBER_LIST({ mode: 'list', type: 'C' });
+        this.ACTION_POINT_LIST({ mode: 'pointListAdmin', type: 'C' });
     },
     methods: {
-        ...mapActions(['ACTION_MEMBER_LIST']),
+        ...mapActions(['ACTION_POINT_LIST']),
         onLoadGender(v) {
             if (v === 'm') return 'male';
             if (v === 'f') return 'female';
@@ -147,7 +147,7 @@ export default {
         },
         onClickPageNation(p, n) {
             const params = {
-                mode: 'list',
+                mode: 'pointListAdmin',
                 page: p,
                 type: 'C'
             };
@@ -156,24 +156,24 @@ export default {
                 params[this.$route.query?.t] = this.$route.query?.q;
             }
 
-            this.ACTION_MEMBER_LIST(params);
+            this.ACTION_POINT_LIST(params);
         },
         onSubmitSearch() {
             const params = {
-                mode: 'list',
+                mode: 'pointListAdmin',
                 type: 'C'
             };
             params[this.dropdownValue.code] = this.searchStr;
 
-            this.ACTION_MEMBER_LIST(params);
-            this.router.push(`/seller/list?t=${this.dropdownValue.code}&q=${this.searchStr}`);
+            this.ACTION_POINT_LIST(params);
+            this.router.push(`/user/pointList?t=${this.dropdownValue.code}&q=${this.searchStr}`);
             // this.onClickPageNation(1);
         },
         onClickResetSearch() {
-            this.router.push(`/seller/list`);
+            this.router.push(`/user/pointList`);
             this.searchStr = '';
             this.dropdownValue = { name: 'id', code: 'mb_id' };
-            this.ACTION_MEMBER_LIST({ mode: 'list', type: 'C' });
+            this.ACTION_POINT_LIST({ mode: 'pointListAdmin', type: 'C' });
         }
     }
 };

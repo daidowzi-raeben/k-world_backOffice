@@ -59,9 +59,14 @@ const router = createRouter({
                     component: () => import('@/views/seller/sellerList.vue')
                 },
                 {
-                    path: '/seller/register',
-                    name: 'sellerregister',
-                    component: () => import('@/views/seller/sellerRegister.vue')
+                    path: '/seller/add',
+                    name: 'sellerAdd',
+                    component: () => import('@/views/seller/sellerAdd.vue')
+                },
+                {
+                    path: '/user/pointList',
+                    name: 'pointList',
+                    component: () => import('@/views/user/pointList.vue')
                 },
                 {
                     path: '/event/list',
@@ -69,9 +74,9 @@ const router = createRouter({
                     component: () => import('@/views/event/eventList.vue')
                 },
                 {
-                    path: '/event/register',
-                    name: 'eventregister',
-                    component: () => import('@/views/event/eventRegister.vue')
+                    path: '/event/add',
+                    name: 'eventAdd',
+                    component: () => import('@/views/event/eventAdd.vue')
                 },
                 {
                     path: '/shop/setting',
@@ -132,6 +137,11 @@ const router = createRouter({
                     path: '/shop/productqa/detail',
                     name: 'productqadetail',
                     component: () => import('@/views/shop/productQaDetail.vue')
+                },
+                {
+                    path: '/content/list',
+                    name: 'contentList',
+                    component: () => import('@/views/content/contentList.vue')
                 },
                 {
                     path: '/shop/inventory',
@@ -353,6 +363,11 @@ const router = createRouter({
             path: '/login',
             name: 'signIn',
             component: () => import('@/views/signIn.vue')
+        },
+        {
+            path: '/test',
+            name: 'test',
+            component: () => import('@/views/test.vue')
         },
     ]
 });

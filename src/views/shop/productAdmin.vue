@@ -53,12 +53,12 @@
                         <tr v-for="(v, i) in GOODS.LIST?.data" :key="i">
                             <td>{{ i + 1 + nowPage }}</td>
                             <td>{{ v?.goods_code }}</td>
-                            <td>
+                            <td @click="router.push('/shop/product/add?code=' + v?.goods_code)">
                                 <div v-for="(z, x) in v?.img_list" :key="x">
                                     <img v-if="z?.img_code === 'T'" class="thumb-img sm" :src="z?.img_url" />
                                 </div>
                             </td>
-                            <td class="text-left">
+                            <td class="text-left" @click="router.push('/shop/product/add?code=' + v?.goods_code)">
                                 <span class="text-grey">{{ v?.depth1_name }} &gt; {{ v?.depth2_name }}</span
                                 ><br />
                                 [{{ v?.brand_name }}] {{ v?.goods_name }}
@@ -154,15 +154,14 @@ export default {
     components: {},
     created() {},
     mounted() {
-        this.ACTION_GOODS_LIST({ mode: 'list', cate: '5790757' });
+        this.ACTION_GOODS_LIST({ mode: 'list' });
     },
     methods: {
         ...mapActions(['ACTION_GOODS_LIST']),
         async onClickPageNation(p, n) {
             const params = {
                 mode: 'list',
-                page: p,
-                cate: '5790757'
+                page: p
             };
 
             if (this.$route.query?.t) {

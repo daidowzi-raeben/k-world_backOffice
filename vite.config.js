@@ -10,14 +10,16 @@ export default defineConfig(() => {
         server: {
             proxy: {
                 "/api": {
-                    target: 'https://api.school-os.net/kworld',
+                    // target: 'https://api.school-os.net/kworld',
+                    // target: 'http://localhost:3095/kworld',
+                    target: 'https://k-world365.com/kworld',
                     changeOrigin: true,
                     rewrite: (path) => path.replace(/^\/api/, ""),
                 },
-                "/testApi": {
-                    target: 'https://kr.trip.com/restapi/soa2/27015/FlightListSearch?x-traceID=1710205163015.326epKjcT9bJ-1719990960981-1362392875',
+                "/kccLogin": {
+                    target: 'https://t-api-kcc-la.qssi-wms.com/api/v1/auth',
                     changeOrigin: true,
-                    rewrite: (path) => path.replace(/^\/testApi/, ""),
+                    rewrite: (path) => path.replace(/^\/kccLogin/, ""),
                 },
             },
         },

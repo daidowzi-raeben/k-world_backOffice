@@ -111,6 +111,7 @@ export default {
         isSubmit() {
             console.log('??');
 
+            this.formData.type = 'C';
             this.formData.mb_nation = this.listboxValue?.code;
             this.formData.mb_birth = this.calendarValue ? _dateFormatYmd(this.calendarValue) : null;
             this.ACTION_MEMBER_ADD(this.formData);

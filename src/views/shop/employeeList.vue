@@ -27,7 +27,7 @@
                 <div class="table-top">
                     <div class="left">Total 10</div>
                     <div class="right">
-                        <Button label="숨김해제" severity="secondary" class="mr-2" />
+                        <!-- <Button label="숨김해제" severity="secondary" class="mr-2" /> -->
                         <Button label="등록" severity="secondary" @click="router.push('/shop/employee/add')" />
                     </div>
                 </div>
@@ -57,20 +57,20 @@
                 </div>
                 <div class="p-paginator p-component mt-2">
                     <button class="p-paginator-first p-paginator-element p-link p-disabled" type="button" disabled="">
-                    <i class="pi pi-angle-left"></i>
+                        <i class="pi pi-angle-left"></i>
                     </button>
                     <button class="p-paginator-prev p-paginator-element p-link p-disabled" type="button" disabled="">
-                    <i class="pi pi-angle-double-left"></i>
+                        <i class="pi pi-angle-double-left"></i>
                     </button>
                     <span class="p-paginator-pages" data-pc-section="pages">
-                    <button class="p-paginator-page p-paginator-element p-link p-highlight" type="button">1</button>
-                    <button class="p-paginator-page p-paginator-element p-link" type="button">2</button>
+                        <button class="p-paginator-page p-paginator-element p-link p-highlight" type="button">1</button>
+                        <button class="p-paginator-page p-paginator-element p-link" type="button">2</button>
                     </span>
                     <button class="p-paginator-first p-paginator-element p-link" type="button">
-                    <i class="pi pi-angle-right"></i>
+                        <i class="pi pi-angle-right"></i>
                     </button>
                     <button class="p-paginator-prev p-paginator-element p-link" type="button">
-                    <i class="pi pi-angle-double-right"></i>
+                        <i class="pi pi-angle-double-right"></i>
                     </button>
                 </div>
             </div>
@@ -84,27 +84,23 @@ import { useRouter } from 'vue-router';
 
 export default {
     data() {
-    return {
-        dropdownValues: ref([
-            { name: 'select1', code: '1' },
-            { name: 'select2', code: '2' },
-            { name: 'select3', code: '3' },
-        ]),
-        dropdownValue: ref(null),
-        router: useRouter()
-    };
-  },
-  components: {},
-  created(){},
-  mounted() {
-    
-  },
-  methods: {
-  },
+        return {
+            dropdownValues: ref([
+                { name: 'select1', code: '1' },
+                { name: 'select2', code: '2' },
+                { name: 'select3', code: '3' }
+            ]),
+            dropdownValue: ref(null),
+            router: useRouter()
+        };
+    },
+    components: {},
+    created() {},
+    mounted() {},
+    methods: {}
 };
 </script>
 
 
 <style>
-
 </style>

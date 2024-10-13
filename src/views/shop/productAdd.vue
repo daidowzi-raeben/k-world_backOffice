@@ -1,8 +1,8 @@
 <template>
-    <div class="grid">
-        <div style="width: 100%; height: 300px; background: #fff; position: fixed; top: 0; left: 0; z-index: 9999">
-            {{ goods }}
-        </div>
+    <div class="grid" id="submitForm">
+        <!-- <div style="overflow: hidden; width: 100%; height: 300px; background: #fff; position: fixed; top: 0; left: 0; z-index: 9999">
+            {{ GOODS }}
+        </div> -->
         <div class="col-12">
             <div class="card">
                 <h4><strong>상품등록</strong></h4>
@@ -22,9 +22,7 @@
                     <div class="input-wrap">
                         <label class="label">카테고리</label>
                         <select size="5" v-model="goods.cate1" class="scroll-box">
-                            <option class="btn" v-for="(v, i) in MENU_LIST.DEPTH1" :key="i" :value="v?.idx" @click="onClickCategory(2, v?.menu_code)">
-                                {{ v?.menu_en }}
-                            </option>
+                            <option class="btn" v-for="(v, i) in MENU_LIST.DEPTH1" :key="i" :value="v?.idx" @click="onClickCategory(2, v?.menu_code)">{{ v?.menu_en }} {{ v?.idx }}</option>
                         </select>
                         <select size="5" v-model="goods.cate2" class="scroll-box">
                             <option class="btn" v-for="(v, i) in MENU_LIST.DEPTH2" :key="i" :value="v?.idx">
@@ -140,11 +138,35 @@
                             </div>
                         </div>
                     </div>
+                    <div class="grid">
+                        <div class="col-12 md:col-5">
+                            <div class="input-wrap">
+                                <label class="label">상품태그</label>
+                                <InputText type="text" v-model="goods.goods_shop" placeholder="placeholder" class="wd-100"></InputText>
+                            </div>
+                            <div class="input-wrap mt-1">
+                                <label class="label"></label>
+                                #으로 구분합니다
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-12 md:col-5">
+                            <div class="input-wrap">
+                                <label class="label">리워드 텍스트</label>
+                                <InputText type="text" v-model="goods.reward_text" placeholder="placeholder" class="wd-100"></InputText>
+                            </div>
+                            <div class="input-wrap mt-1">
+                                <label class="label"></label>
+                            </div>
+                        </div>
+                    </div>
                     <div class="input-wrap mt-0">
                         <label class="label">상품노출시간</label>
                         <Calendar :showIcon="true" :showButtonBar="true" v-model="goods.use_datetime" dateFormat="yy/mm/dd" placeholder="yyyy/mm/dd" showTime></Calendar>
+                        {{ goods.use_datetime }}
                     </div>
-                    <div class="grid mt-0">
+                    <!-- <div class="grid mt-0">
                         <div class="col-12">
                             <div class="input-wrap">
                                 <label class="label">상품대표색상</label>
@@ -166,74 +188,28 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <hr id="tab3" class="mt-7 mb-7" />
                 <div class="pt-8 pb-8">
-                    <div class="grid mt-2">
+                    <!-- {{ goods.info }} -->
+                    <div class="grid mt-2" v-for="(v, i) in goods.info" :key="i">
                         <div class="col-5">
                             <div class="input-wrap">
-                                <label class="label">Manufacturer</label>
-                                <InputText type="text" placeholder="placeholder" class="wd-100"></InputText>
-                            </div>
-                        </div>
-                        <div class="col-5">
-                            <div class="input-wrap">
-                                <label class="label">Dimensions</label>
-                                <InputText type="text" placeholder="placeholder" class="wd-100"></InputText>
+                                <label class="label">{{ v.title }}</label>
+                                <InputText type="text" v-model="goods.info[i].value" placeholder="placeholder" class="wd-100"></InputText>
                             </div>
                         </div>
                     </div>
-                    <div class="grid">
-                        <div class="col-5">
-                            <div class="input-wrap">
-                                <label class="label">Weight</label>
-                                <InputText type="text" placeholder="placeholder" class="wd-100"></InputText>
-                            </div>
-                        </div>
-                        <div class="col-5">
-                            <div class="input-wrap">
-                                <label class="label">Material</label>
-                                <InputText type="text" placeholder="placeholder" class="wd-100"></InputText>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-5">
-                            <div class="input-wrap">
-                                <label class="label">Color</label>
-                                <InputText type="text" placeholder="placeholder" class="wd-100"></InputText>
-                            </div>
-                        </div>
-                        <div class="col-5">
-                            <div class="input-wrap">
-                                <label class="label">Ingredients</label>
-                                <InputText type="text" placeholder="placeholder" class="wd-100"></InputText>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-5">
-                            <div class="input-wrap">
-                                <label class="label">Number of Items</label>
-                                <InputText type="text" placeholder="placeholder" class="wd-100"></InputText>
-                            </div>
-                        </div>
-                        <div class="col-5">
-                            <div class="input-wrap">
-                                <label class="label">Warranty</label>
-                                <InputText type="text" placeholder="placeholder" class="wd-100"></InputText>
-                            </div>
-                        </div>
-                    </div>
+                    <!--
                     <div class="grid">
                         <div class="col-5">
                             <div class="input-wrap">
                                 <label class="label">Additional<br />Information</label>
-                                <InputText type="text" placeholder="placeholder" class="wd-100"></InputText>
+                                <InputText type="text" v-model="goods.info[0].value" placeholder="placeholder" class="wd-100"></InputText>
                             </div>
                         </div>
-                        <div class="col-5">
+                         <div class="col-5">
                             <div class="input-wrap">
                                 <label class="label">유통기한</label>
                                 <InputText type="text" placeholder="placeholder" class="wd-100"></InputText>
@@ -252,9 +228,9 @@
                                 <label class="label">출시일</label>
                                 <InputText type="text" placeholder="placeholder" class="wd-100"></InputText>
                             </div>
-                        </div>
-                    </div>
-                    <div class="input-wrap mt-0">
+                        </div> 
+                    </div>-->
+                    <!-- <div class="input-wrap mt-0">
                         <label class="label">추가항목</label>
                         <Button label="Add" />
                         <span class="ml-2">※ 상품 특성에 맞게 항목을 추가할 수 있습니다. (예. 감독, 저자, 출판사, 유통사, 상품영문명 등)</span>
@@ -285,13 +261,24 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <hr id="tab4" class="mt-7 mb-7" />
                 <div class="pt-8 pb-8">
                     <div class="grid mt-2">
                         <div class="col-5">
                             <div class="input-wrap">
+                                <label class="label">품절 상태</label>
+                                <div class="field-radiobutton mb-0">
+                                    <RadioButton id="soldOut" name="soldOut" value="1" v-model="soldout_yn" />
+                                    <label for="soldOut">정상</label>
+                                </div>
+                                <div class="field-radiobutton mb-0">
+                                    <RadioButton id="soldOut2" name="soldOut" value="2" v-model="soldout_yn" />
+                                    <label for="soldOut2">품절(수동)</label>
+                                </div>
+                            </div>
+                            <!-- <div class="input-wrap">
                                 <label class="label">판매 재고</label>
                                 <div class="field-radiobutton mb-0">
                                     <RadioButton id="sale" name="sale" value="1" v-model="radioValueSale" />
@@ -301,16 +288,16 @@
                                     <RadioButton id="sale2" name="sale" value="2" v-model="radioValueSale" />
                                     <label for="sale2">재고량에 따름</label>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-5">
                             <div class="input-wrap">
                                 <label class="label">상품 재고</label>
-                                <InputText type="text" class="mr-2 wd-sm"></InputText>개
+                                <InputText type="text" class="mr-2 wd-sm" v-model="goods.goods_inven"></InputText>개
                             </div>
                         </div>
                     </div>
-                    <div class="grid">
+                    <!-- <div class="grid">
                         <div class="col-5">
                             <div class="input-wrap">
                                 <label class="label">묶음주문 단위</label>
@@ -322,17 +309,17 @@
                             <div class="input-wrap">
                                 <label class="label">품절 상태</label>
                                 <div class="field-radiobutton mb-0">
-                                    <RadioButton id="soldOut" name="soldOut" value="1" v-model="radioValueSoldOut" />
+                                    <RadioButton id="soldOut" name="soldOut" value="1" v-model="soldout_yn" />
                                     <label for="soldOut">정상</label>
                                 </div>
                                 <div class="field-radiobutton mb-0">
-                                    <RadioButton id="soldOut2" name="soldOut" value="2" v-model="radioValueSoldOut" />
+                                    <RadioButton id="soldOut2" name="soldOut" value="2" v-model="soldout_yn" />
                                     <label for="soldOut2">품절(수동)</label>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="input-wrap mt-0">
+                    </div> -->
+                    <!-- <div class="input-wrap mt-0">
                         <label class="label">구매수량 설정</label>
                         <div class="field-radiobutton mb-0">
                             <RadioButton id="saleQuantity" name="saleQuantity" value="1" v-model="radioValueSaleQuantity" />
@@ -349,8 +336,8 @@
                                 <span class="ml-2">개</span>
                             </label>
                         </div>
-                    </div>
-                    <div class="input-wrap">
+                    </div> -->
+                    <!-- <div class="input-wrap">
                         <label class="label">판매기간</label>
                         <div class="field-radiobutton mb-0">
                             <RadioButton id="salePeriod" name="salePeriod" value="1" v-model="radioValueSalePeriod" />
@@ -365,14 +352,14 @@
                                 <Calendar :showIcon="true" :showButtonBar="true" v-model="calendarValue" :disabled="radioValueSalePeriod == '1'"></Calendar>
                             </label>
                         </div>
-                    </div>
-                    <div class="input-wrap">
+                    </div> -->
+                    <!-- <div class="input-wrap">
                         <label class="label">재입고 알림</label>
                         <div class="field-checkbox mb-0">
                             <Checkbox id="restock" name="restock" value="Yes" v-model="checkboxValueRestock" />
                             <label for="restock">상품 재입고 알림 사용</label>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <hr id="tab5" class="mt-7 mb-7" />
                 <div class="pt-8 pb-8">
@@ -380,13 +367,13 @@
                         <div class="col-5">
                             <div class="input-wrap">
                                 <label class="label">정가</label>
-                                <InputText type="text" placeholder="placeholder"></InputText>
+                                <InputText type="text" v-model="goods.goods_price" placeholder="placeholder"></InputText>
                             </div>
                         </div>
                         <div class="col-5">
                             <div class="input-wrap">
                                 <label class="label">판매가</label>
-                                <InputText type="text" placeholder="placeholder"></InputText>
+                                <InputText type="text" v-model="goods.goods_amt" placeholder="placeholder"></InputText>
                                 <strong class="ml-2">0.0% DC</strong>
                             </div>
                         </div>
@@ -396,25 +383,71 @@
                             <div class="input-wrap">
                                 <label class="label">타임딜</label>
                                 <div class="field-checkbox mb-0">
-                                    <Checkbox id="timedeal" name="timedeal" value="Yes" v-model="checkboxValueTimedeal" />
+                                    <Checkbox id="timedeal" name="timedeal" value="Yes" v-model="goods.time_yn" />
                                     <label for="timedeal">Yes</label>
                                 </div>
                             </div>
                             <div class="input-wrap mt-0">
                                 <label class="label"></label>
                                 <p>
-                                    *time deal 은 상품 노출시간으로부터 하루 전 시작됩니다.<br />
-                                    *이미 노출된 상품은 타임딜이 불가합니다.
+                                    * time deal 은 상품 노출시간으로부터 24시간동안 적용됩니다.<br />
+                                    * 이미 노출된 상품은 타임딜이 불가합니다.
                                 </p>
                             </div>
                         </div>
                         <div class="col-5">
                             <div class="input-wrap">
                                 <label class="label">타임딜 판매가</label>
-                                <InputText type="text" placeholder="placeholder" :disabled="checkboxValueTimedeal != 'Yes'"></InputText>
+                                <InputText type="text" placeholder="placeholder" v-model="goods.time_amt" :disabled="goods.time_yn != 'Yes'"></InputText>
                                 <strong class="ml-2">0.0% DC</strong>
                             </div>
                         </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-5">
+                            <div class="input-wrap">
+                                <label class="label">리워드 포인트</label>
+                                <div class="field-checkbox mb-0">
+                                    <InputText type="text" placeholder="placeholder" v-model="goods.point_amt"></InputText>
+                                </div>
+                            </div>
+                            <!-- <div class="input-wrap mt-0">
+                                <label class="label"></label>
+                                <p>
+                                    * time deal 은 상품 노출시간으로부터 24시간동안 적용됩니다.<br />
+                                    * 이미 노출된 상품은 타임딜이 불가합니다.
+                                </p>
+                            </div> -->
+                        </div>
+                        <div class="col-5">
+                            <div class="input-wrap">
+                                <label class="label">크리에이터 정산</label>
+                                <InputText type="text" placeholder="placeholder" v-model="goods.creator_amt"></InputText>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-5">
+                            <div class="input-wrap">
+                                <label class="label">추가배송비</label>
+                                <div class="field-checkbox mb-0">
+                                    <InputText type="text" placeholder="placeholder" v-model="goods.amt_ship_cost_add"></InputText>
+                                </div>
+                            </div>
+                            <!-- <div class="input-wrap mt-0">
+                                <label class="label"></label>
+                                <p>
+                                    * time deal 은 상품 노출시간으로부터 24시간동안 적용됩니다.<br />
+                                    * 이미 노출된 상품은 타임딜이 불가합니다.
+                                </p>
+                            </div> -->
+                        </div>
+                        <!-- <div class="col-5">
+                            <div class="input-wrap">
+                                <label class="label">크리에이터 정산</label>
+                                <InputText type="text" placeholder="placeholder" v-model="goods.creator_amt"></InputText>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
                 <hr id="tab6" class="mt-7 mb-7" />
@@ -432,50 +465,55 @@
                     </div>
                     <div class="input-wrap">
                         <label class="label">옵션설정</label>
-                        <Button label="옵션수정(3개)" @click="optionAddModal = true" />
+                        <Button :label="`옵션수정(${GOODS.OPTIONS.cnt}개)`" @click="optionAddModal = true" />
                         <Dialog header="옵션등록" v-model:visible="optionAddModal" :modal="true">
-                            <Button label="추가하기" />
+                            <!-- {{ options }} -->
+                            <Button label="추가하기" @click="options.cnt++" />
                             <div class="table-wrap mt-4">
                                 <table class="table">
                                     <tr>
                                         <th>옵션명</th>
                                         <th>옵션설명</th>
                                         <th>가격</th>
-                                        <th>이미지</th>
+                                        <!-- <th>이미지</th> -->
                                         <th></th>
                                     </tr>
-                                    <tr>
+
+                                    <tr v-for="item in options.cnt" :key="item">
                                         <td>
-                                            <InputText type="text" placeholder="placeholder"></InputText>
+                                            <InputText type="text" placeholder="placeholder" v-model="options.option_title[item - 1]"></InputText>
                                         </td>
                                         <td>
-                                            <InputText type="text" placeholder="placeholder"></InputText>
+                                            <InputText type="text" placeholder="placeholder" v-model="options.option_value[item - 1]"></InputText>
                                         </td>
                                         <td>
-                                            <InputText type="text" placeholder="placeholder"></InputText>
+                                            <InputText type="text" placeholder="placeholder" v-model="options.option_amt[item - 1]"></InputText>
                                         </td>
+                                        <!-- <td>
+                                            <FileUpload mode="basic" name="demo[]" accept="image/*" :maxFileSize="1000000" @uploader="onUploadOption($event, [item - 1])" :auto="true" customUpload />
+                                        </td> -->
                                         <td>
-                                            <FileUpload mode="basic" name="demo[]" accept="image/*" :maxFileSize="1000000" @uploader="onUpload" :auto="true" customUpload />
-                                        </td>
-                                        <td>
-                                            <Button label="삭제" severity="danger" />
+                                            <Button label="삭제" severity="danger" @click="onClickOptionsDelete(item - 1)" />
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>베이지색<br /><span class="text-grey">CP00001</span></td>
-                                        <td>베이지색입니다 노출 안돼요</td>
-                                        <td>$44.4</td>
+                                    <tr v-for="item in GOODS.OPTIONS.cnt" :key="item">
                                         <td>
-                                            <img class="thumb-img" src="https://images.khan.co.kr/article/2023/08/29/news-p.v1.20230828.53498d1b40ad4d52b31987dac9454409_P1.jpg" />
+                                            {{ GOODS.OPTIONS?.option_title[item - 1] }}<br />
+                                            <!-- <span class="text-grey">CP00001</span> -->
                                         </td>
+                                        <td>{{ GOODS.OPTIONS?.option_value[item - 1] }}</td>
+                                        <td>${{ GOODS.OPTIONS?.option_amt[item - 1] }}</td>
+                                        <!-- <td>
+                                            <img class="thumb-img" :src="GOODS.OPTIONS?.img[item - 1]?.objectURL" />
+                                        </td> -->
                                         <td>
-                                            <Button label="삭제" severity="danger" />
+                                            <Button label="삭제" severity="danger" @click="onClickOptionsDelete(i)" />
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                             <template #footer>
-                                <Button label="저장하기" @click="optionAddModal = false" icon="pi pi-check" class="p-button-outlined" />
+                                <Button label="저장하기" @click="onClickOptionSave" icon="pi pi-check" class="p-button-outlined" />
                             </template>
                         </Dialog>
                     </div>
@@ -497,34 +535,58 @@
                         <div class="input-wrap mt-4">
                             <label class="label">원본이미지</label>
                             <div class="upload-custom">
-                                <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept="image/*" :maxFileSize="1000000" customUpload />
+                                <FileUpload name="demo[]" mode="basic" :auto="true" @uploader="onUploadO($event)" :multiple="false" accept="image/*" :maxFileSize="1000000" customUpload />
+                                <div style="margin-top: 10px">
+                                    <img v-for="(v, i) in GOODS.THUMB.O" :key="i" :src="v?.objectURL" style="width: 100px; height: 100px" />
+                                    <template v-if="GOODS.THUMB.O.length === 0 && this.goods?.img_list?.length > 0">
+                                        <template v-for="(v, i) in this.goods?.img_list" :key="i">
+                                            <img v-if="v?.img_code === 'O'" :src="v?.img_url" style="width: 100px; height: 100px" />
+                                        </template>
+                                    </template>
+                                </div>
                             </div>
                         </div>
                         <div class="input-wrap">
-                            <label class="label">확대이미지</label>
+                            <label class="label">상세 이미지</label>
                             <div class="upload-custom">
-                                <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept="image/*" :maxFileSize="1000000" customUpload />
+                                <FileUpload name="demo[]" mode="basic" :auto="true" @uploader="onUploadD($event)" :multiple="true" accept="image/*" :maxFileSize="1000000" customUpload />
+                                <div style="margin-top: 10px">
+                                    <img v-for="(v, i) in GOODS.THUMB.D" :key="i" :src="v?.objectURL" style="width: 100px; height: 100px" />
+                                    <template v-if="GOODS.THUMB.D.length === 0 && this.goods?.img_list?.length > 0">
+                                        <template v-for="(v, i) in this.goods?.img_list" :key="i">
+                                            <img v-if="v?.img_code === 'D'" :src="v?.img_url" style="width: 100px; height: 100px" />
+                                        </template>
+                                    </template>
+                                </div>
                             </div>
                         </div>
                         <div class="input-wrap mt-1">
                             <label class="label"></label>
-                            <div class="field-checkbox mb-0">
+                            <!-- <div class="field-checkbox mb-0">
                                 <Checkbox id="original" name="original" value="original" v-model="checkboxValue" />
                                 <label for="original" class="white-space-nowrap">원본이미지로 사용</label>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="input-wrap">
                             <label class="label">썸네일이미지</label>
                             <div class="upload-custom">
-                                <FileUpload name="demo[]" @uploader="onUpload" :multiple="true" accept="image/*" :maxFileSize="1000000" customUpload />
+                                <FileUpload name="demo[]" mode="basic" :auto="true" @uploader="onUploadT($event)" :multiple="false" accept="image/*" :maxFileSize="1000000" customUpload />
+                                <div style="margin-top: 10px">
+                                    <img v-for="(v, i) in GOODS.THUMB.T" :key="i" :src="v?.objectURL" style="width: 100px; height: 100px" />
+                                    <template v-if="GOODS.THUMB.T.length === 0 && this.goods?.img_list?.length > 0">
+                                        <template v-for="(v, i) in this.goods?.img_list" :key="i">
+                                            <img v-if="v?.img_code === 'T'" :src="v?.img_url" style="width: 100px; height: 100px" />
+                                        </template>
+                                    </template>
+                                </div>
                             </div>
                         </div>
                         <div class="input-wrap mt-1">
                             <label class="label"></label>
-                            <div class="field-checkbox mb-0">
+                            <!-- <div class="field-checkbox mb-0">
                                 <Checkbox id="original2" name="original2" value="original2" v-model="checkboxValue" />
                                 <label for="original2" class="white-space-nowrap">원본이미지로 사용</label>
-                            </div>
+                            </div> -->
                         </div>
                     </template>
                     <template v-else-if="radioValueUploadMethod == 'url'">
@@ -568,7 +630,7 @@
                         <div class="col-10">
                             <div class="input-wrap">
                                 <label class="label">상세설명</label>
-                                <vue-editor v-model="content" class="wd-100"></vue-editor>
+                                <vue-editor v-model="goods.detailContent" class="wd-100"></vue-editor>
                             </div>
                         </div>
                     </div>
@@ -606,7 +668,7 @@
                     </div>
                 </div>
                 <div class="btn-wrap mt-0">
-                    <Button label="등록" class="lg" />
+                    <Button label="등록" class="lg" @click="onClickSubmit" />
                 </div>
             </div>
         </div>
@@ -625,7 +687,22 @@ export default {
             search: {
                 brand: ''
             },
+            options: {
+                cnt: 1,
+                option_title: [],
+                option_amt: [],
+                option_inven: [],
+                option_value: [],
+                img: []
+            },
+            goods_data: {},
             goods: {
+                detailContent: '',
+                goods_inven: '9999',
+                reward_text: '',
+                goods_name: '',
+                goods_tag: '',
+                goods_shop: '',
                 use_yn: 'Y',
                 sale_yn: 'Y',
                 hot_yn: ['Y'],
@@ -641,7 +718,24 @@ export default {
                     refund: ''
                 },
                 color: [],
-                info: {}
+                info: [
+                    { title: 'Manufacturer', value: '' },
+                    { title: 'Dimensions', value: '' },
+                    { title: 'Weight', value: '' },
+                    { title: 'Material', value: '' },
+                    { title: 'Color', value: '' },
+                    { title: 'Ingredients', value: '' },
+                    { title: 'Number', value: '' },
+                    { title: 'Additional', value: '' }
+                ],
+
+                goods_price: '0',
+                goods_amt: '0',
+                time_yn: '',
+                time_amt: '0',
+                point_amt: '0',
+                amt_ship_cost_add: '0',
+                creator_amt: '0'
             },
             dropdownValues: ref([
                 { name: 'select1', code: '1' },
@@ -657,14 +751,16 @@ export default {
             checkboxValue2: '',
             calendarValue: '',
             colorValue: '#000000',
-            content: '',
             content2: '',
             content3: '',
             content4: '',
             content5: '',
+            point_amt: '',
+            time_amt: '',
+            test: null,
             toast: useToast(),
-            checkboxValueTimedeal: '',
-            radioValueSoldOut: '1',
+            time_yn: '',
+            soldout_yn: '1',
             radioValueSaleQuantity: '1',
             radioValueSalePeriod: '1',
             checkboxValueRestock: '',
@@ -719,6 +815,71 @@ export default {
             },
             deep: true,
             immediate: true
+        },
+        'GOODS.DETAIL': {
+            handler(v) {
+                setTimeout(() => {
+                    console.log(v?.data);
+                    if (v?.data?.idx) {
+                        const data = JSON.stringify(this.GOODS.DETAIL?.data);
+                        this.goods = JSON.parse(data);
+
+                        this.goods.brand = {
+                            brand_name: this.goods.brand_name
+                        };
+                        this.goods.term = {
+                            delivery: this.goods.goods_delivery,
+                            as: this.goods.goods_as,
+                            exchange: this.goods.goods_exchange,
+                            refund: this.goods.goods_refund
+                        };
+                        this.options.cnt = this.goods.option_list.length;
+                        this.goods.option_list.forEach((e, i) => {
+                            this.options.option_title[i] = e.option_title;
+                            this.options.option_amt[i] = e.option_amt;
+                            this.options.option_value[i] = e.option_value;
+                            this.options.option_inven[i] = e.option_inven;
+                        });
+                        // this.content = this.goods.detailContent;
+                        this.goods.info = [
+                            { title: 'Manufacturer', value: '' },
+                            { title: 'Dimensions', value: '' },
+                            { title: 'Weight', value: '' },
+                            { title: 'Material', value: '' },
+                            { title: 'Color', value: '' },
+                            { title: 'Ingredients', value: '' },
+                            { title: 'Number', value: '' },
+                            { title: 'Additional', value: '' }
+                        ];
+
+                        this.goods.info_list.forEach((v) => {
+                            this.goods.info.forEach((e) => {
+                                if (v?.info_title === e?.title) {
+                                    e.value = v.info_memo;
+                                }
+                            });
+                        });
+                        this.onClickOptionSave();
+
+                        this.onClickCategory(2, this.goods.cate_parent_idx);
+                    }
+                    // this.goods.cate_parent_idx = this.goods_data.cate_parent_idx;
+                    // this.goods.cate_idx = this.goods_data.cate_idx;
+
+                    // this.goods.info = [
+                    //     { title: 'Manufacturer', value: '' },
+                    //     { title: 'Dimensions', value: '' },
+                    //     { title: 'Weight', value: '' },
+                    //     { title: 'Material', value: '' },
+                    //     { title: 'Color', value: '' },
+                    //     { title: 'Ingredients', value: '' },
+                    //     { title: 'Number', value: '' },
+                    //     { title: 'Additional', value: '' }
+                    // ];
+                }, 100);
+            },
+            deep: true,
+            immediate: true
         }
     },
     computed: {
@@ -737,13 +898,74 @@ export default {
         this.ACTION_TERM_GOODS({ mode: 'goods_once' });
 
         // color 정보 추출
-        this.ACTION_COLOR_LIST({ mode: 'color' });
+        // this.ACTION_COLOR_LIST({ mode: 'color' });
+
+        if (this.$route?.query?.code) {
+            this.ACTION_GOODS_DETAIL({ mode: 'detail', goods: this.$route?.query?.code });
+        }
     },
     methods: {
-        ...mapMutations(['MUTATION_MENU_LIST']),
-        ...mapActions(['ACTION_MENU_LIST', 'ACTION_BRAND_LIST', 'ACTION_TERM_GOODS', 'ACTION_COLOR_LIST']),
+        ...mapMutations(['MUTATION_OPTIONS_DATA', 'MUTATION_MENU_LIST', 'MUTATION_OPTIONS_LIST', 'MUTATION_THUMB_O', 'MUTATION_THUMB_T', 'MUTATION_THUMB_D']),
+        ...mapActions(['ACTION_GOODS_DETAIL', 'ACTION_GOODS_INSERT', 'ACTION_MENU_LIST', 'ACTION_BRAND_LIST', 'ACTION_TERM_GOODS', 'ACTION_COLOR_LIST']),
         onUpload: () => {
             this.toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
+        },
+        onUploadOption(v, i) {
+            // this.toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
+            console.log(v?.files[0]?.objectURL);
+            this.options.img[i] = v?.files[0];
+            // this.options.img = { aa: 1 };
+        },
+        onUploadO(v, i) {
+            // this.toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
+            console.log(v?.files[0]?.objectURL);
+            this.MUTATION_THUMB_O(v?.files[0]);
+            // this.options.img = { aa: 1 };
+        },
+        onUploadD(v, i) {
+            // this.toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
+            console.log(v?.files[0]?.objectURL);
+            this.MUTATION_THUMB_D(v?.files[0]);
+            // this.options.img = { aa: 1 };
+        },
+        onUploadT(v, i) {
+            // this.toast.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
+            console.log(v?.files[0]?.objectURL);
+            this.MUTATION_THUMB_T(v?.files[0]);
+            // this.options.img = { aa: 1 };
+        },
+        onClickOptionSave() {
+            for (let i = 0; i < this.options.cnt; i++) {
+                if (!this.options.option_title[i] || !this.options.option_amt[i] || !this.options.option_value[i]) {
+                    alert('모든 항목을 입력하세요');
+                    return;
+                }
+            }
+            let data = JSON.stringify(this.options);
+            data = JSON.parse(data);
+            data.img = this.options.img;
+            console.log('==============================');
+            this.MUTATION_OPTIONS_LIST(data);
+        },
+        onClickOptionsDelete(index) {
+            console.log(index);
+            const option_title = [];
+            const option_value = [];
+            const option_amt = [];
+            const img = [];
+            this.options.option_title.forEach((v, i) => {
+                if (i != index) {
+                    option_title.push(v);
+                    option_value.push(this.options.option_value[i]);
+                    option_amt.push(this.options.option_amt[i]);
+                    img.push(this.options.img[i]);
+                }
+            });
+            this.options.option_title = option_title;
+            this.options.option_value = option_value;
+            this.options.option_amt = option_amt;
+            this.options.img = img;
+            this.options.cnt = this.options.option_title.length;
         },
         onLoadSearch() {},
         onClickCategory(depth, parentCode) {
@@ -776,6 +998,38 @@ export default {
             });
 
             // [0].checked
+        },
+        onClickSubmit() {
+            if (!this.goods.use_datetime) return alert('상품노출날짜를 입력하세요');
+            this.goods.color = [];
+            this.MUTATION_OPTIONS_DATA(this.goods);
+            let formData = new FormData();
+            formData.append('mode', 'insert');
+            formData.append('goodsData', JSON.stringify(this.GOODS));
+            this.GOODS.THUMB.O.forEach((v, i) => {
+                formData.append(`imgO${i}`, v);
+            });
+            formData.append(`imgOCnt`, this.GOODS.THUMB.O.length);
+            this.GOODS.THUMB.O.forEach((v, i) => {
+                formData.append(`imgO${i}`, v);
+            });
+
+            this.GOODS.THUMB.D.forEach((v, i) => {
+                formData.append(`imgD${i}`, v);
+            });
+            formData.append(`imgDCnt`, this.GOODS.THUMB.D.length);
+
+            this.GOODS.THUMB.T.forEach((v, i) => {
+                formData.append(`imgT${i}`, v);
+            });
+            formData.append(`imgTCnt`, this.GOODS.THUMB.T.length);
+
+            this.GOODS.OPTIONS.img.forEach((v, i) => {
+                formData.append(`optionImg${i}`, v);
+            });
+            formData.append(`optionImgCnt`, this.GOODS.OPTIONS.length);
+
+            this.ACTION_GOODS_INSERT(formData);
         }
     }
 };

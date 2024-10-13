@@ -2,8 +2,8 @@
     <div class="grid">
         <div class="col-12">
             <div class="card">
-                <h4><strong>분류관리</strong></h4>
-                <div class="search-wrap grid">
+                <h4><strong>Category</strong></h4>
+                <!-- <div class="search-wrap grid">
                     <div class="left">
                         <label class="label">분류 검색</label>
                         <Dropdown v-model="dropdownValue" :options="dropdownValues" optionLabel="name" placeholder="Select" />
@@ -22,19 +22,19 @@
                         <Button label="Search" class="mr-2" />
                         <Button label="Reset" />
                     </div>
-                </div>
+                </div> -->
 
                 <div class="table-top">
-                    <div class="left">Total 10</div>
+                    <div class="left"></div>
                     <div class="right">
-                        <Button label="등록" severity="secondary" @click="categoryModal = true" />
+                        <!-- <Button label="등록" severity="secondary" @click="categoryModal = true" /> -->
                         <Dialog header="분류명 추가" v-model:visible="categoryModal" :modal="true" class="modal-sm">
                             <div class="input-wrap">
                                 <label class="label">분류명</label>
                                 <InputText type="text" placeholder="placeholder"></InputText>
                             </div>
                             <div class="btn-wrap">
-                                <Button label="Add" />
+                                <!-- <Button label="Add" /> -->
                             </div>
                         </Dialog>
                     </div>
@@ -47,10 +47,10 @@
                             <th>분류명</th>
                             <th>상품 수</th>
                             <th>판매가능</th>
-                            <th>이벤트여부</th>
-                            <th></th>
+                            <!-- <th>이벤트여부</th> -->
+                            <!-- <th></th> -->
                         </tr>
-                        <template v-for="(v, i) in MENU_LIST.DEPTH1?.data" :key="i">
+                        <template v-for="(v, i) in MENU_LIST.DEPTH1" :key="i">
                             <tr>
                                 <td>
                                     <button type="button" class="btn btn-fold">
@@ -61,7 +61,7 @@
                                 <td class="text-left">{{ v?.menu_en }}</td>
                                 <td>{{ v?.total_cnt }}</td>
                                 <td>{{ v?.use_yn }}</td>
-                                <td><Button outlined label="추가" @click="categoryModal = true" /></td>
+                                <!-- <td><Button outlined label="추가" @click="categoryModal = true" /></td> -->
                             </tr>
                             <template v-if="v?.child?.length > 0">
                                 <tr v-for="(x, j) in v?.child" :key="j" class="fold isActive">
@@ -74,7 +74,7 @@
                                     <td class="text-left depth">{{ x?.menu_en }}</td>
                                     <td>{{ x?.total_cnt }}</td>
                                     <td>{{ x?.use_yn }}</td>
-                                    <td></td>
+                                    <!-- <td></td> -->
                                 </tr>
                             </template>
                             <!-- <tr class="fold isActive">
@@ -102,7 +102,7 @@
                         </tr> -->
                     </table>
                 </div>
-                <div class="p-paginator p-component mt-2">
+                <!-- <div class="p-paginator p-component mt-2">
                     <button class="p-paginator-first p-paginator-element p-link p-disabled" type="button" disabled="">
                         <i class="pi pi-angle-left"></i>
                     </button>
@@ -119,7 +119,7 @@
                     <button class="p-paginator-prev p-paginator-element p-link" type="button">
                         <i class="pi pi-angle-double-right"></i>
                     </button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

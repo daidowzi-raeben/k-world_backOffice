@@ -29,7 +29,7 @@
                 <div class="table-top">
                     <div class="left">Total {{ MEMBER.LIST?.total }}</div>
                     <div class="right">
-                        <Button label="숨김해제" severity="secondary" class="mr-2" />
+                        <!-- <Button label="숨김해제" severity="secondary" class="mr-2" /> -->
                         <Button label="등록" severity="secondary" @click="router.push('/user/add')" />
                     </div>
                 </div>
