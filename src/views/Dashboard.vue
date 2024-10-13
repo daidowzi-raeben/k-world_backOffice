@@ -112,7 +112,8 @@ const ratingValue = ref(4);
 
 const mainPostData = async () => {
     try {
-        const response = await axios.post('/api/main.php', {
+        // const response = await axios.post('/api/main.php', {
+        const response = await axios.post('https://k-world365.com/kworld/main.php', {
             mode: 'main'
         });
         // 201: created
