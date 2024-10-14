@@ -64,6 +64,10 @@ const store = createStore({
                 LIST: [],
                 DETAIL: {}
             },
+            FAQ: {
+                LIST: [],
+                DETAIL: {}
+            },
             POINT: {
                 LIST: [],
                 DETAIL: {}
@@ -168,6 +172,14 @@ const store = createStore({
         MUTATION_POINT_DETAIL(state, payload) {
             console.log('payload', payload)
             state.POINT.DETAIL = payload
+        },
+        MUTATION_FAQ_LIST(state, payload) {
+            console.log('payload', payload)
+            state.FAQ.LIST = payload
+        },
+        MUTATION_FAQ_DETAIL(state, payload) {
+            console.log('payload', payload)
+            state.FAQ.DETAIL = payload
         },
         MUTATION_BANNER_DETAIL(state, payload) {
             console.log('payload', payload)
@@ -391,6 +403,19 @@ const store = createStore({
                     console.log(error);
                 });
         },
+        ACTION_FAQ_ADD({ commit }, params) {
+            axios
+                .post(`${import.meta.env.VITE_API_URL}/request.php`, params)
+                .then(function (response) {
+                    console.log(response)
+                    alert('success')
+                    location.href = '/shop/faq'
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
         ACTION_BANNER_LIST({ commit }, params) {
             axios
                 .post(`${import.meta.env.VITE_API_URL}/event.php`, params)
@@ -513,6 +538,29 @@ const store = createStore({
                 .then(function (response) {
                     console.log(response)
                     commit('MUTATION_POINT_LIST', response?.data)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+
+        ACTION_FAQ_DETAIL({ commit }, params) {
+            axios
+                .post(`${import.meta.env.VITE_API_URL}/request.php`, params)
+                .then(function (response) {
+                    console.log(response)
+                    commit('MUTATION_FAQ_DETAIL', response?.data)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        ACTION_FAQ_LIST({ commit }, params) {
+            axios
+                .post(`${import.meta.env.VITE_API_URL}/request.php`, params)
+                .then(function (response) {
+                    console.log(response)
+                    commit('MUTATION_FAQ_LIST', response?.data)
                 })
                 .catch(function (error) {
                     console.log(error);

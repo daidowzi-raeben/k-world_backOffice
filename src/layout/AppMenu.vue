@@ -47,7 +47,8 @@ const model = ref([
             { label: '분류관리', to: '/shop/category' },
             { label: '상품관리', to: '/shop/productad' },
             { label: '1:1 Inquiry', to: '/shop/qa' },
-            { label: '상품후기', to: '/shop/review' }
+            { label: '상품후기', to: '/shop/review' },
+            { label: 'FAQ', to: '/shop/faq' }
 
             // { label: '상품재고관리', to: '/shop/inventory' },
             // { label: '상품유형관리', to: '/shop/type' },

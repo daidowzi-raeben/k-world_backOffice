@@ -129,6 +129,16 @@ const router = createRouter({
                     component: () => import('@/views/shop/productReviewDetail.vue')
                 },
                 {
+                    path: '/shop/faq',
+                    name: 'productFaq',
+                    component: () => import('@/views/shop/productFaq.vue')
+                },
+                {
+                    path: '/shop/faq/add',
+                    name: 'productFaqdetail',
+                    component: () => import('@/views/shop/productFaqDetail.vue')
+                },
+                {
                     path: '/shop/qa',
                     name: 'productqa',
                     component: () => import('@/views/shop/productQa.vue')

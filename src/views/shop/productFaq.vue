@@ -2,7 +2,7 @@
     <div class="grid">
         <div class="col-12">
             <div class="card">
-                <h4><strong>Review</strong></h4>
+                <h4><strong>FAQ</strong></h4>
                 <!-- <div class="search-wrap grid">
                     <div class="left">
                         <label class="label">후기 검색</label>
@@ -26,63 +26,55 @@
                 </div> -->
 
                 <div class="table-top">
-                    <div class="left">Total {{ REVIEW.LIST?.total }}</div>
+                    <div class="left">Total {{ FAQ.LIST?.total }}</div>
                     <div class="right">
-                        <!-- <Button label="Add" severity="secondary" @click="router.push('/shop/review/detail')" /> -->
+                        <Button label="Add" severity="secondary" @click="onClickLocation" />
                     </div>
                 </div>
                 <div class="table-wrap">
                     <table class="table">
                         <tr>
-                            <th>item code</th>
-                            <th>item name</th>
-                            <th>item option</th>
-                            <th>rate</th>
-                            <th>user name</th>
+                            <th>title</th>
+                            <!-- <th>name</th> -->
+                            <!-- <th>answer</th> -->
                         </tr>
-                        <tr v-for="(v, i) in REVIEW.LIST?.data" :key="i">
-                            <td>{{ v?.goods_idx }}</td>
-                            <td @click="router.push('/shop/review/detail?code=' + v?.idx)" style="text-align: left">{{ v?.goods_name }}</td>
-                            <td @click="router.push('/shop/review/detail?code=' + v?.idx)" style="text-align: left">{{ v?.option_title }}</td>
-                            <td><Rating v-model="ratingValue" class="justify-content-center" readonly /></td>
-                            <td style="text-align: left">{{ v?.mb_name }}</td>
+                        <tr v-for="(v, i) in FAQ.LIST?.data" :key="i">
+                            <td style="text-align: left" @click="router.push('/shop/faq/add?code=' + v?.idx)">{{ v?.title }}</td>
+                            <!-- <td style="text-align: left" @click="router.push('/shop/productqa/detail?code=' + v?.idx)">{{ v?.mb_name }}</td> -->
+                            <!-- <td>
+                                <Button :class="{ 'p-button-danger': !v?.answer }" :label="!v?.answer ? 'wait' : 'response'" outlined @click="router.push('/shop/productqa/detail?code=' + v?.idx)" />
+                            </td> -->
                         </tr>
                     </table>
                 </div>
-                <div v-if="REVIEW.LIST?.data?.length > 0" class="p-paginator p-component mt-2">
-                    <button class="p-paginator-prev p-paginator-element p-link" type="button" :class="{ 'p-disabled': REVIEW.LIST?.pageNow === 1 }" :disabled="REVIEW.LIST?.pageNow === 1 ? true : false" @click="onClickPageNation(1)">
+                <div v-if="FAQ.LIST?.data?.length > 0" class="p-paginator p-component mt-2">
+                    <button class="p-paginator-prev p-paginator-element p-link" type="button" :class="{ 'p-disabled': FAQ.LIST?.pageNow === 1 }" :disabled="FAQ.LIST?.pageNow === 1 ? true : false" @click="onClickPageNation(1)">
                         <i class="pi pi-angle-double-left"></i>
                     </button>
-                    <button
-                        class="p-paginator-first p-paginator-element p-link"
-                        :class="{ 'p-disabled': REVIEW.LIST?.pageNow === 1 }"
-                        :disabled="REVIEW.LIST?.pageNow === 1 ? true : false"
-                        type="button"
-                        @click="onClickPageNation(REVIEW.LIST?.pageNow - 1)"
-                    >
+                    <button class="p-paginator-first p-paginator-element p-link" :class="{ 'p-disabled': FAQ.LIST?.pageNow === 1 }" :disabled="FAQ.LIST?.pageNow === 1 ? true : false" type="button" @click="onClickPageNation(FAQ.LIST?.pageNow - 1)">
                         <i class="pi pi-angle-left"></i>
                     </button>
                     <span class="p-paginator-pages" data-pc-section="pages">
                         <!-- pageNow -->
-                        <button v-for="(v, i) in REVIEW.LIST?.page" :key="i" :class="{ 'p-highlight': REVIEW.LIST?.pageNow === i + 1 }" class="p-paginator-page p-paginator-element p-link" type="button" @click="onClickPageNation(i + 1)">
+                        <button v-for="(v, i) in FAQ.LIST?.page" :key="i" :class="{ 'p-highlight': FAQ.LIST?.pageNow === i + 1 }" class="p-paginator-page p-paginator-element p-link" type="button" @click="onClickPageNation(i + 1)">
                             {{ i + 1 }}
                         </button>
                     </span>
                     <button
                         class="p-paginator-first p-paginator-element p-link"
                         type="button"
-                        :class="{ 'p-disabled': REVIEW.LIST?.pageNow === REVIEW.LIST?.page }"
-                        :disabled="REVIEW.LIST?.pageNow === REVIEW.LIST?.page ? true : false"
-                        @click="onClickPageNation(REVIEW.LIST?.pageNow + 1)"
+                        :class="{ 'p-disabled': FAQ.LIST?.pageNow === FAQ.LIST?.page }"
+                        :disabled="FAQ.LIST?.pageNow === FAQ.LIST?.page ? true : false"
+                        @click="onClickPageNation(FAQ.LIST?.pageNow + 1)"
                     >
                         <i class="pi pi-angle-right"></i>
                     </button>
                     <button
                         class="p-paginator-prev p-paginator-element p-link"
                         type="button"
-                        :class="{ 'p-disabled': REVIEW.LIST?.pageNow === REVIEW.LIST?.page }"
-                        :disabled="REVIEW.LIST?.pageNow === REVIEW.LIST?.page ? true : false"
-                        @click="onClickPageNation(REVIEW.LIST?.page)"
+                        :class="{ 'p-disabled': FAQ.LIST?.pageNow === FAQ.LIST?.page }"
+                        :disabled="FAQ.LIST?.pageNow === FAQ.LIST?.page ? true : false"
+                        @click="onClickPageNation(FAQ.LIST?.page)"
                     >
                         <i class="pi pi-angle-double-right"></i>
                     </button>
@@ -118,14 +110,14 @@ export default {
     },
     components: {},
     computed: {
-        ...mapState(['REVIEW'])
+        ...mapState(['FAQ'])
     },
     created() {},
     mounted() {
-        this.ACTION_REVIEW_LIST({ mode: 'listAdmin' });
+        this.ACTION_FAQ_LIST({ mode: 'faq' });
     },
     methods: {
-        ...mapActions(['ACTION_REVIEW_LIST', 'ACTION_REVIEW_USE']),
+        ...mapActions(['ACTION_FAQ_LIST', 'ACTION_FAQ_USE']),
         onClickUseYn(v, i) {
             const param = {
                 mode: 'isUse',
@@ -133,7 +125,10 @@ export default {
                 idx: i
             };
 
-            this.ACTION_REVIEW_USE(param);
+            this.ACTION_FAQ_USE(param);
+        },
+        onClickLocation() {
+            location.href = '/shop/faq/add';
         }
     }
 };
