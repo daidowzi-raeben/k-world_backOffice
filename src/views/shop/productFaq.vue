@@ -26,7 +26,9 @@
                 </div> -->
 
                 <div class="table-top">
-                    <div class="left">Total {{ FAQ.LIST?.total }}</div>
+                    <div class="left">
+                        <!-- Total {{ FAQ.LIST?.total }} -->
+                    </div>
                     <div class="right">
                         <Button label="Add" severity="secondary" @click="onClickLocation" />
                     </div>
@@ -47,7 +49,7 @@
                         </tr>
                     </table>
                 </div>
-                <div v-if="FAQ.LIST?.data?.length > 0" class="p-paginator p-component mt-2">
+                <!-- <div v-if="FAQ.LIST?.data?.length > 0" class="p-paginator p-component mt-2">
                     <button class="p-paginator-prev p-paginator-element p-link" type="button" :class="{ 'p-disabled': FAQ.LIST?.pageNow === 1 }" :disabled="FAQ.LIST?.pageNow === 1 ? true : false" @click="onClickPageNation(1)">
                         <i class="pi pi-angle-double-left"></i>
                     </button>
@@ -55,7 +57,6 @@
                         <i class="pi pi-angle-left"></i>
                     </button>
                     <span class="p-paginator-pages" data-pc-section="pages">
-                        <!-- pageNow -->
                         <button v-for="(v, i) in FAQ.LIST?.page" :key="i" :class="{ 'p-highlight': FAQ.LIST?.pageNow === i + 1 }" class="p-paginator-page p-paginator-element p-link" type="button" @click="onClickPageNation(i + 1)">
                             {{ i + 1 }}
                         </button>
@@ -78,7 +79,7 @@
                     >
                         <i class="pi pi-angle-double-right"></i>
                     </button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

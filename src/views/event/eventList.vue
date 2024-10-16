@@ -44,6 +44,7 @@
                             <td class="text-left" @click="router.push('/event/add?code=' + v?.idx)">
                                 <img :src="v?.img_url" width="150" />
                             </td>
+                            <td v-if="v?.event_page === 'K'">search banner</td>
                             <td v-if="v?.event_page === 'P'">main popup banner</td>
                             <td v-if="v?.event_page === 'M'">main visual banner</td>
                             <td v-if="v?.event_page === 'S'">category page banner</td>

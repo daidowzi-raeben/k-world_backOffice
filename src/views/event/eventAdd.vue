@@ -16,6 +16,8 @@
                         <label for="option3">content main banner</label>
                         <RadioButton id="option3" name="option" value="W" v-model="params.event_page" />
                         <label for="option3">content weekly ranking banner</label>
+                        <RadioButton id="option3" name="option" value="K" v-model="params.event_page" />
+                        <label for="option3">search banner</label>
                     </div>
                     <div class="input-wrap">
                         <label class="label">category</label>
