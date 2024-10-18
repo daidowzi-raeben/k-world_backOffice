@@ -146,6 +146,11 @@ $gutter: 1rem; //for primeflex grid system
         &.text-left{
             text-align: left;
         }
+        img{
+            height:85px;
+            max-height: 85px;
+            object-fit: cover;
+        }
     }
     &.sm{
         th, td{
