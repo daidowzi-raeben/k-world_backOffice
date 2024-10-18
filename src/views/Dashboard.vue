@@ -201,15 +201,15 @@ watch(
             <div class="card mb-0">
                 <div class="flex justify-content-between mb-3">
                     <div>
-                        <span class="block text-500 font-medium mb-3">1:1 Inquiry</span>
-                        <div class="text-900 font-medium text-xl">152 Unread</div>
+                        <span class="block text-500 font-medium mb-3">Content</span>
+                        <div class="text-900 font-medium text-xl">{{ mainData?.content_cnt }} Upload</div>
                     </div>
                     <div class="flex align-items-center justify-content-center bg-purple-100 border-round" style="width: 2.5rem; height: 2.5rem">
                         <i class="pi pi-comment text-purple-500 text-xl"></i>
                     </div>
                 </div>
-                <span class="text-green-500 font-medium">85 </span>
-                <span class="text-500">처리완료</span>
+                <span class="text-green-500 font-medium">{{ mainData?.content_cnt_today }} </span>
+                <span class="text-500">Today</span>
             </div>
         </div>
 
