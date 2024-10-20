@@ -6,7 +6,7 @@
                     <div class="col-8">
                         <form @submit.prevent="onSubmit">
                             <h4><strong>개인정보처리방침 설정</strong></h4>
-                            <Textarea placeholder="Your Message" v-model="addData.content" :autoResize="true" rows="20" class="wd-100" />
+                            <vue-editor v-model="addData.content" class="wd-100"></vue-editor>
                             <div class="btn-wrap">
                                 <Button type="submit" label="등록" class="lg" />
                             </div>
@@ -79,6 +79,7 @@
 
 <script>
 import { _isUser, _dateFormatYmdDot } from '@/js/common.js';
+import { VueEditor } from 'vue3-editor';
 import { mapState, mapActions, mapMutations } from 'vuex';
 export default {
     data() {
@@ -99,7 +100,9 @@ export default {
     computed: {
         ...mapState(['TERM_LIST'])
     },
-    components: {},
+    components: {
+        VueEditor
+    },
     created() {},
     mounted() {
         this.ACTION_TERM_LIST(this.formData);
@@ -131,4 +134,7 @@ export default {
 
 
 <style>
+.ql-editor{
+    height: 400px;
+}
 </style>
