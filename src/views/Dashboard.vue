@@ -257,7 +257,7 @@ watch(
                             <span class="text-900 font-medium mr-2 mb-1 md:mb-0">{{ v?.goods_name }}</span>
                             <div class="mt-1 text-600">{{ v?.content }}</div>
                         </div>
-                        <div class="mt-2 md:mt-0 flex align-items-center">
+                        <div class="mt-2 md:mt-0 flex align-items-center ml-3">
                             <Rating v-model="v.rate" readonly />
                             <span class="ml-2">{{ v?.rate }}</span>
                         </div>

@@ -300,3 +300,7 @@ $gutter: 1rem; //for primeflex grid system
         vertical-align: super;
     }
 }
+
+.list-none li{
+    word-break: break-all;
+}
