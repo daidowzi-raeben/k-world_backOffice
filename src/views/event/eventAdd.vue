@@ -75,6 +75,11 @@
                         </Dialog>
                     </div>
                     <div class="input-wrap">
+                        <label class="label">sort</label>
+                        <InputText type="text" v-model="params.sort"></InputText>
+                        <div style="margin-left: 10px">숫자가 적을수록 먼저 노출됩니다.</div>
+                    </div>
+                    <div class="input-wrap">
                         <label class="label">Image</label>
                         <InputText type="file" id="baanerImg" placeholder="placeholder" @change="onChangeEventBanner($event)"></InputText>
                     </div>
@@ -132,7 +137,8 @@ export default {
                 goods_code: '',
                 goods_name: '',
                 img: '',
-                isEdit: ''
+                isEdit: '',
+                sort: 1
             },
             base64Img: null
         };

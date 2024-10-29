@@ -38,6 +38,7 @@
                             <th>location</th>
                             <th>item code</th>
                             <th>item name</th>
+                            <th>sort</th>
                             <th>use</th>
                         </tr>
                         <tr v-for="(v, i) in BANNER.LIST?.data" :key="i">
@@ -52,6 +53,7 @@
                             <td v-if="v?.event_page === 'W'">content weekly ranking banner</td>
                             <td>{{ v?.goods_code }}</td>
                             <td style="text-align: left">{{ v?.goods_name }}</td>
+                            <td style="text-align: center">{{ v?.sort }}</td>
                             <td><Button :class="{ 'p-button-danger': v?.use_yn === 'N' }" :label="v?.use_yn === 'Y' ? 'enbled' : 'disabled'" outlined @click="onClickUseYn(v?.use_yn, v?.idx)" /></td>
                         </tr>
                     </table>
